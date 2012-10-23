@@ -12,8 +12,8 @@ public class Solid  {
 	private GameContainer gc;
 	private StateBasedGame state;
 	private int map;
-	private float x;
-	private float y;
+	public float x = 300;
+	public float y = 300;
 	private Image img;
 	
 	public Solid (int map, GameContainer gc, StateBasedGame state, Graphics g){
@@ -21,8 +21,14 @@ public class Solid  {
 		this.gc = gc;
 		this.state = state;
 		this.map = map;
+		
+		
+	}
+	
+	public void init (){
+		
 		try {
-			img = new Image("");
+			img = new Image("res/solid.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,16 +36,16 @@ public class Solid  {
 		
 	}
 	
-	public void init (){
-		
+	public void render (){
+		img.draw(x,y);
 	}
 	
-	public void draw (){
-		
-	}
+	
 	
 	public void update(){
 		
 	}
+	
+	
 
 }

@@ -15,9 +15,9 @@ public class Menu extends BasicGameState {
 
 	
 	private Image background;
-	private Image startGame;
-	private int menuX = 100;
-	private int menuY = 150;
+	private Image startgame;
+	private int menuX = 300;
+	private int menuY = 300;
 	
 	
 	public Menu(int state) {
@@ -27,7 +27,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
-		
+		startgame = new Image("res/startgame.png");
 
 	}
 
@@ -35,7 +35,7 @@ public class Menu extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame state, Graphics g)
 			throws SlickException {
 	
-		
+		startgame.draw(menuX,menuY);
 
 	} 			
 
@@ -58,11 +58,11 @@ public class Menu extends BasicGameState {
 		 */
 
 		if (mouseX > menuX && mouseY > menuY && mouseX
-				<= menuX + startGame.getWidth() && mouseY <= menuY + startGame.getHeight()  ){
-			startGame.setRotation(12);
+				<= menuX + startgame.getWidth() && mouseY <= menuY + startgame.getHeight()  ){
+			startgame.setRotation(12);
 			isInsideStart = true;
 		} else {
-			startGame.setRotation(0);
+			startgame.setRotation(0);
 		}
 		
 		if (isInsideStart){

@@ -30,8 +30,8 @@ public class Game extends StateBasedGame implements Runnable {
 		//Inställningar för fönstret t.ex. upplösning/framerate
 		try {
 			appgc = new AppGameContainer(new Game(gameName));
-			appgc.setDisplayMode(640, 480, false);
-			appgc.setTargetFrameRate(30);
+			appgc.setDisplayMode(800, 600, false);
+			appgc.setTargetFrameRate(60);
 			appgc.start();
 
 		} catch (SlickException e) {
