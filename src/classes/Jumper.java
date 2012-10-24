@@ -12,6 +12,8 @@ public class Jumper  {
 	private float velocity = 5;
 	private float x = 40;
 	private float y = 40;
+	private float cameraX = 50;
+	private float cameraY = 50;
 	
 	private Graphics g;
 	private GameContainer gc;
@@ -19,6 +21,7 @@ public class Jumper  {
 
 	private Animation jump, movingLeft, movingRight, jumper, front;
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
+	private Image bg;
 
 	private float falling = 6;
 	private Solid solid;
@@ -47,6 +50,7 @@ public class Jumper  {
 		 * Array med varje bild som ska animeras 
 		 */
 		try{
+			bg = new Image("res/background.png");
 			Image[]walkRight = {new Image("res/hero.png"), new Image("res/hero.png")};
 			Image[]walkLeft = {new Image("res/heroLeft.png"), new Image("res/heroLeft.png")};
 			Image[]jumpImg = {new Image("res/hero.png"), new Image("res/hero.png")};
@@ -67,8 +71,8 @@ public class Jumper  {
 	}
 	
 	public void render(){
-	
-		jumper.draw(x, y);
+		bg.draw(0 - cameraX,0);
+		jumper.draw(x - cameraX, y - cameraY);
 		
 	}
 	
@@ -82,11 +86,15 @@ public class Jumper  {
 		if (inp.isKeyDown(inp.KEY_RIGHT)){
 			jumper = movingRight;
 			x += velocity;
+			cameraX += 5;
 		}
 		if (inp.isKeyDown(inp.KEY_LEFT)){
 			jumper = movingLeft;
 			x -= velocity;
+			cameraX -= 5;
 		}
+		
+		
 		
 		
 		

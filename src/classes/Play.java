@@ -25,7 +25,7 @@ public class Play extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
-		background = new Image("res/background.png");
+	//	background = new Image("res/background.png");
 		solid = new Solid(1,gc,state, g);
 		jumper = new Jumper(gc, state, g, solid); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
@@ -34,7 +34,7 @@ public class Play extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame state, Graphics g)
 			throws SlickException {
-		background.draw(0,0);
+	//	background.draw(0,0);
 		this.g = g; // lägga det specifika grafikobjektet i en variabel
 		jumper.render(); //kör jumperns render metod
 		
