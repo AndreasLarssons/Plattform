@@ -3,6 +3,8 @@ package classes;
 
 
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,6 +17,7 @@ public class Play extends BasicGameState {
 	private Jumper jumper;
 	private Graphics g;
 	private Solid solid ;
+	private ArrayList<Solid> listSolid = new ArrayList<Solid>();
 	private Image background;
 	
 
@@ -26,7 +29,10 @@ public class Play extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
 	//	background = new Image("res/background.png");
+		for (int i = 0; i < 50 ; i++){
 		solid = new Solid(1,gc,state, g);
+		listSolid.add(solid);
+		}
 		jumper = new Jumper(gc, state, g, solid); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
 		solid.init();
@@ -38,7 +44,8 @@ public class Play extends BasicGameState {
 		this.g = g; // lägga det specifika grafikobjektet i en variabel
 		jumper.render(); //kör jumperns render metod
 		
-		//solid.render();
+		
+		solid.render();
 	}
 	@Override
 	public void update(GameContainer gc, StateBasedGame state, int update)

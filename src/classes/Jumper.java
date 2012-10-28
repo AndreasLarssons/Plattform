@@ -50,6 +50,7 @@ public class Jumper  {
 		 * Array med varje bild som ska animeras 
 		 */
 		try{
+			
 			bg = new Image("res/background.png");
 			Image[]walkRight = {new Image("res/hero.png"), new Image("res/hero.png")};
 			Image[]walkLeft = {new Image("res/heroLeft.png"), new Image("res/heroLeft.png")};
@@ -71,7 +72,7 @@ public class Jumper  {
 	}
 	
 	public void render(){
-		bg.draw(0 - cameraX,0);
+		bg.draw(0 - cameraX, 0 - cameraY);
 		jumper.draw(x - cameraX, y - cameraY);
 		
 	}
@@ -101,7 +102,8 @@ public class Jumper  {
 		if (hitbox.hitTest(solid)){
 			
 		} else {
-			//this.y += 2; 
+			//this.y += 2;
+			//cameraY -= 0.5;
 		}
 	}
 	
