@@ -14,16 +14,21 @@ public class Solid  {
 	private StateBasedGame state;
 	private int map;
 	public float x = 300;
-	public float y = 400;
+	public float y = 500;
 	private float cameraX = 80;
 	private float cameraY = 50;
 	private Image img;
+	private Hitbox hitbox;
+	public boolean isSideHit = false;
 	
-	public Solid (int map, GameContainer gc, StateBasedGame state, Graphics g){
+	public Solid (int map, GameContainer gc, StateBasedGame state, Graphics g , Hitbox hitbox , float x, float y ){
 		this.g = g;
 		this.gc = gc;
 		this.state = state;
 		this.map = map;
+		this.hitbox = hitbox; // för att kunna lägga in solidens x/y i hitboxen
+		this.x = x;
+		this.y = y;
 		
 		
 	}
@@ -47,15 +52,23 @@ public class Solid  {
 	
 	public void update(){
 		Input inp = gc.getInput();
-		if (inp.isKeyDown(inp.KEY_RIGHT)){
+		if (!isSideHit){ // Kollar om man kolliderar med soliden i sidled då ska den inte röra sig i förhållande till spelaren
+			if (inp.isKeyDown(inp.KEY_RIGHT)){
 			
-			cameraX += 5;
-		}
-		if (inp.isKeyDown(inp.KEY_LEFT)){
+				cameraX += 5;
+			}
+			if (inp.isKeyDown(inp.KEY_LEFT)){
 			
-			cameraX -= 5;
+				cameraX -= 5;
+			}
+		hitbox.setSolidX(x - cameraX);
+		hitbox.setSolidY(y - cameraY);
+		hitbox.setSolidWidth(img.getWidth());
+		hitbox.setSolidHeight(img.getHeight());
 		}
 	}
+	
+	
 	
 	
 

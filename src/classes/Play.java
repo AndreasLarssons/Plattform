@@ -16,9 +16,10 @@ public class Play extends BasicGameState {
 	
 	private Jumper jumper;
 	private Graphics g;
-	private Solid solid ;
+	private Solid solid , solid2 ;
 	private ArrayList<Solid> listSolid = new ArrayList<Solid>();
 	private Image background;
+	private Hitbox hitbox;
 	
 
 	public Play (int state) throws SlickException{
@@ -29,13 +30,15 @@ public class Play extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
 	//	background = new Image("res/background.png");
-		for (int i = 0; i < 50 ; i++){
-		solid = new Solid(1,gc,state, g);
-		listSolid.add(solid);
-		}
-		jumper = new Jumper(gc, state, g, solid); // Skapa ny instance av jumper
+		hitbox = new Hitbox();
+	
+		solid = new Solid(1,gc,state, g , hitbox , 300, 500);
+		
+		
+		jumper = new Jumper(gc, state, g, solid, hitbox); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
 		solid.init();
+	
 	}
 	@Override
 	public void render(GameContainer gc, StateBasedGame state, Graphics g)
@@ -46,12 +49,14 @@ public class Play extends BasicGameState {
 		
 		
 		solid.render();
+	
 	}
 	@Override
 	public void update(GameContainer gc, StateBasedGame state, int update)
 			throws SlickException {
 		jumper.update(); //kör jumperns update metod
 		solid.update();
+		
 	}
 	@Override
 	public int getID() {
