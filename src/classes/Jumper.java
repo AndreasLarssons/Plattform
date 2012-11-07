@@ -26,9 +26,7 @@ public class Jumper  {
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
 	private Image bg;
 
-	private float falling = 6;
 	private Solid solid;
-	private float leftHitPoint, rightHitPoint, bottomHitPoint, topHitPoint;
 	
 	private Hitbox hitbox;
 	

@@ -23,7 +23,7 @@ public class Hitbox {
 			if(playerX + playerWidth > solidX && playerY == solidY && playerX
 					<= solidX + solidWidth && playerY <= solidY + solidHeight - 10){
 				return true;
-			} 
+			}
 			else {
 			
 				return false;
