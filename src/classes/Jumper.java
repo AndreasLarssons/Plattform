@@ -20,7 +20,10 @@ public class Jumper  {
 	private StateBasedGame state;
 	
 	private boolean isOnGround = false;
-	private boolean sideHit = false;
+	private boolean leftsideHit = false;
+	private boolean rightsideHit = false;
+	private boolean isJumping = false;
+	private float startY;
 
 	private Animation jump, movingLeft, movingRight, jumper, front;
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
@@ -90,14 +93,24 @@ public class Jumper  {
 			isOnGround = true; // om spelaren står på marken
 			
 		} else {
-			
+			isOnGround = false;
 			this.y += 4;// Gravitation
 			//cameraY -= 0.5;
 		}
-		if (hitbox.sideHitTest(jumper.getHeight() , jumper.getWidth())){ // om spelaren träffar en solid i sidan
-			sideHit = true;
-			solid.isSideHit = true;
+		if (hitbox.leftSideHitTest(jumper.getHeight() , jumper.getWidth())){ // om spelaren träffar en solid i sidan
+			leftsideHit = true;
+			solid.leftIsSideHit = true;
 			System.out.println("isSideHit");
+		} else {
+			solid.leftIsSideHit = false;
+		}
+		
+		if (hitbox.rightSideHitTest(jumper.getHeight() , jumper.getWidth())){
+			rightsideHit = true;
+			solid.rightIsSideHit = true;
+			System.out.println("isSideHit");
+		} else {
+			solid.rightIsSideHit = false;
 		}
 		
 		
@@ -107,33 +120,52 @@ public class Jumper  {
 	private void moving(){
 		Input inp = gc.getInput(); // Hämta input objektet till variablen inp
 		
-		if(!sideHit){ // Kollar om spelaren kolliderar med ett objekt i sidled
-	
+		// Kollar om spelaren kolliderar med ett objekt i sidled
+		//System.out.println("isrighthit  " + rightsideHit + "      islefthit  "+ leftsideHit);
+		if(!rightsideHit){
 			if (inp.isKeyDown(inp.KEY_RIGHT)){
-			System.out.println("MovingRight");
+			//System.out.println("MovingRight");
 			jumper = movingRight;
 			x += velocity;
 			cameraX += 5;
 			}
+		} else {
+			rightsideHit = false;
+			solid.rightIsSideHit = false;
+		}
+		if (!leftsideHit){
 			if (inp.isKeyDown(inp.KEY_LEFT)){
-			System.out.println("MovingLeft");
+		//	System.out.println("MovingLeft");
 			jumper = movingLeft;
 			x -= velocity;
 			cameraX -= 5;
 			}
-		
 		} else {
-			sideHit = false;
-			solid.isSideHit = false;//Gör så soliderna kan röra på sig i förhållande till spelaren om man inte krockar med dem i sidled
+			leftsideHit = false;
+			solid.leftIsSideHit = false;
 		}
+		
 		if  (isOnGround){ // om spelaren står på marken kan man hoppa
 			if (inp.isKeyDown(inp.KEY_UP)){
 				jumper = jump; // sätt animationen till jump
-				this.y -= 80;
+				startY = this.y;
 				isOnGround = false;
+				isJumping = true;
+			}
+		}
+		if (isJumping){
+			
+			this.y -= 10;
+			if (this.y <= startY - 60){
+				this.y -= 2;
+			}
+			if (this.y <= startY - 130 ){
+				isJumping = false;
 			}
 		}
 	}
+	
+	
 	
 
 

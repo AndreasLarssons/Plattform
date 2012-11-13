@@ -19,9 +19,11 @@ public class Hitbox {
 			 * If-satsen nedan kollar om spelaren kolliderar med ett objekt på de satta parametrarna
 			 * om den inte kolliderar så returneras kollisons testet falsk
 			 */
-			
+		//	System.out.println("Player y  " + playerY + "Solid y  " + solidY);
+		
 			if(playerX + playerWidth > solidX && playerY == solidY && playerX
-					<= solidX + solidWidth && playerY <= solidY + solidHeight - 10){
+					<= solidX + solidWidth && playerY <= solidY + solidHeight - 10 || playerY == solidY + 2 || playerY == solidY - 2){
+				System.out.println("IS hit");
 				return true;
 			}
 			else {
@@ -31,16 +33,29 @@ public class Hitbox {
 		
 	}
 	
-	public boolean sideHitTest(float playerHeight, float playerWidth){
+	public boolean rightSideHitTest(float playerHeight, float playerWidth){
 		/*
 		 * If-satsen nedan kollar om spelaren kolliderar med ett objekt i sidled
 		 * 
 		 */
 		if(playerX + playerWidth == solidX && playerY <= solidY + solidHeight - 10 
-				|| playerX - 10 == solidX + solidWidth && playerY <= solidY + solidHeight - 10){
+				){
+			System.out.println("IS Righthit");
+
 			return true;
+		} else {
+			return false;
 		}
-		return false;
+	}
+	
+	public boolean leftSideHitTest (float playerHeight, float playerWidt) {
+		if (playerX == solidX + solidWidth && playerY <= solidY + solidHeight - 10){
+			System.out.println("IS lefthit");
+			
+			return true;
+		}else {
+			return false;
+		}
 	}
 	/* Metoder för att sätta spelaren och soliders x respektive y värde så 
 	 * dessa kan användas i kollisions tester. 

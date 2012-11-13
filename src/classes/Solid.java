@@ -19,7 +19,10 @@ public class Solid  {
 	private float cameraY = 50;
 	private Image img;
 	private Hitbox hitbox;
-	public boolean isSideHit = false;
+	
+	
+	public boolean leftIsSideHit = false;
+	public boolean rightIsSideHit = true;
 	
 	public Solid (int map, GameContainer gc, StateBasedGame state, Graphics g , Hitbox hitbox , float x, float y ){
 		this.g = g;
@@ -52,15 +55,19 @@ public class Solid  {
 	
 	public void update(){
 		Input inp = gc.getInput();
-		if (!isSideHit){ // Kollar om man kolliderar med soliden i sidled då ska den inte röra sig i förhållande till spelaren
+		 // Kollar om man kolliderar med soliden i sidled då ska den inte röra sig i förhållande till spelaren
+		if (!rightIsSideHit) {
 			if (inp.isKeyDown(inp.KEY_RIGHT)){
 			
 				cameraX += 5;
 			}
+		}
+		if (!leftIsSideHit){
 			if (inp.isKeyDown(inp.KEY_LEFT)){
 			
 				cameraX -= 5;
 			}
+		}
 		hitbox.setSolidX(x - cameraX);
 		hitbox.setSolidY(y - cameraY);
 		hitbox.setSolidWidth(img.getWidth());
@@ -72,4 +79,5 @@ public class Solid  {
 	
 	
 
-}
+
+

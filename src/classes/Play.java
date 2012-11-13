@@ -20,6 +20,7 @@ public class Play extends BasicGameState {
 	private ArrayList<Solid> listSolid = new ArrayList<Solid>();
 	private Image background;
 	private Hitbox hitbox;
+	public ArrayList<Solid> listofSolids = new ArrayList<Solid>();
 	
 
 	public Play (int state) throws SlickException{
@@ -31,13 +32,18 @@ public class Play extends BasicGameState {
 			throws SlickException {
 	//	background = new Image("res/background.png");
 		hitbox = new Hitbox();
-	
-		solid = new Solid(1,gc,state, g , hitbox , 300, 500);
+	    for (int i = 0;i < 5 ; i++ ){
+		//solid = new Solid(1,gc,state, g , hitbox , 300, 500);
+	    	listofSolids.add(new Solid(1, gc, state, g, hitbox, i * 100, i * 100));
+	    }
 		
-		
-		jumper = new Jumper(gc, state, g, solid, hitbox); // Skapa ny instance av jumper
+		jumper = new Jumper(gc, state, g, listofSolids.get(listofSolids.size()-1), hitbox); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
-		solid.init();
+		for (int i = 0; i < listofSolids.size(); i++){
+		 solid = listofSolids.get(i);
+		 solid.init();
+		 
+		}
 	
 	}
 	@Override
@@ -47,15 +53,21 @@ public class Play extends BasicGameState {
 		this.g = g; // lägga det specifika grafikobjektet i en variabel
 		jumper.render(); //kör jumperns render metod
 		
+		for (int i = 0; i < listofSolids.size(); i++){
+			 solid = listofSolids.get(i);
+			 solid.render();			 
+			}
 		
-		solid.render();
 	
 	}
 	@Override
 	public void update(GameContainer gc, StateBasedGame state, int update)
 			throws SlickException {
 		jumper.update(); //kör jumperns update metod
-		solid.update();
+		for (int i = 0; i < listofSolids.size(); i++){
+			 solid = listofSolids.get(i);
+			 solid.update();			 
+		}
 		
 	}
 	@Override
