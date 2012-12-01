@@ -17,7 +17,6 @@ public class Play extends BasicGameState {
 	private Jumper jumper;
 	private Graphics g;
 	private Solid solid , solid2 ;
-	private ArrayList<Solid> listSolid = new ArrayList<Solid>();
 	private Image background;
 	private Hitbox hitbox;
 	public ArrayList<Solid> listofSolids = new ArrayList<Solid>();
@@ -32,16 +31,21 @@ public class Play extends BasicGameState {
 			throws SlickException {
 	//	background = new Image("res/background.png");
 		hitbox = new Hitbox();
-	    for (int i = 0;i < 5 ; i++ ){
+	   
 		//solid = new Solid(1,gc,state, g , hitbox , 300, 500);
-	    	listofSolids.add(new Solid(1, gc, state, g, hitbox, i * 100, i * 100));
-	    }
+	    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  1000,  500, listofSolids));
+	    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  550,  500, listofSolids));
+	    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  1500,  500, listofSolids));
+	    	
+	    	
+	    	
+	    
+	    
 		
-		jumper = new Jumper(gc, state, g, listofSolids.get(listofSolids.size()-1), hitbox); // Skapa ny instance av jumper
+		jumper = new Jumper(gc, state, g, listofSolids, hitbox); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
 		for (int i = 0; i < listofSolids.size(); i++){
-		 solid = listofSolids.get(i);
-		 solid.init();
+			listofSolids.get(i).init();
 		 
 		}
 	
@@ -54,8 +58,8 @@ public class Play extends BasicGameState {
 		jumper.render(); //kör jumperns render metod
 		
 		for (int i = 0; i < listofSolids.size(); i++){
-			 solid = listofSolids.get(i);
-			 solid.render();			 
+			 listofSolids.get(i).render();
+			 			 
 			}
 		
 	
@@ -65,8 +69,8 @@ public class Play extends BasicGameState {
 			throws SlickException {
 		jumper.update(); //kör jumperns update metod
 		for (int i = 0; i < listofSolids.size(); i++){
-			 solid = listofSolids.get(i);
-			 solid.update();			 
+			 listofSolids.get(i).update();
+			 
 		}
 		
 	}

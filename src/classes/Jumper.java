@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,8 +14,9 @@ public class Jumper  {
 	private float velocity = 5;
 	private float x = 40;
 	private float y = 40;
-	private float cameraX = 50;
-	private float cameraY = 50;
+	private float cameraX = 10;
+	private float cameraY = 10;
+	private float gravity = 4;
 
 	private Graphics g;
 	private GameContainer gc;
@@ -28,21 +31,24 @@ public class Jumper  {
 	private Animation jump, movingLeft, movingRight, jumper, front;
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
 	private Image bg;
+	
+	
+	
 
-	private Solid solid;
+	private ArrayList<Solid> solids = new ArrayList();
 	
 	private Hitbox hitbox;
 	
 	
 	
-	public Jumper (GameContainer gc, StateBasedGame state, Graphics g , Solid solid, Hitbox hitbox ) {
+	public Jumper (GameContainer gc, StateBasedGame state, Graphics g , ArrayList solid, Hitbox hitbox ) {
 		/*
 		 * Nödvändiga objekt för att kunna använda slick
 		 */
 		this.g = g;
 		this.gc = gc;
 		this.state = state;
-		this.solid = solid; // för att kunna se var solider befinner sig behöver vi dess objekt
+		this.solids = solid; // för att kunna se var solider befinner sig behöver vi dess objekt
 		this.hitbox = hitbox; // för att kunna lägga in postitioner i hitboxens metoder
 		hitbox = new Hitbox();
 		x = gc.getWidth() /2;
@@ -77,46 +83,64 @@ public class Jumper  {
 	}
 	
 	public void render(){
-		bg.draw(0 - cameraX, 0 - cameraY);
+		bg.draw(0 - cameraX,0);
 		jumper.draw(x - cameraX, y - cameraY);
 		
 	}
 	
 	public void update(){
 		
-		hitbox.setPlayerX(x - cameraX);//Ger hitboxen spelarens x/y värden
-		hitbox.setPlayerY(y - cameraY);
+		hitbox.setPlayerX(x);//Ger hitboxen spelarens x/y värden
+		hitbox.setPlayerY(y);
 		
 		
 		moving();// Metod för all rörelse
-		if (hitbox.groundHitTest(solid , jumper.getHeight(), jumper.getWidth())){
-			isOnGround = true; // om spelaren står på marken
+		
+		falling();
+		for (int i = 0; i < solids.size(); i++){
+		
+			if (hitbox.leftSideHitTest(jumper.getHeight() , jumper.getWidth())){ // om spelaren träffar en solid i sidan
+				leftsideHit = true;
+				solids.get(i).leftIsSideHit = true;
+				System.out.println("isSideHit");
+			} else {
+				solids.get(i).leftIsSideHit = false;
+			}
+		}
+		
+		for (int i = 0; i < solids.size(); i++){
+			if (hitbox.rightSideHitTest(jumper.getHeight() , jumper.getWidth())){
+				rightsideHit = true;
+				solids.get(i).rightIsSideHit = true;
 			
-		} else {
-			isOnGround = false;
-			this.y += 4;// Gravitation
-			//cameraY -= 0.5;
-		}
-		if (hitbox.leftSideHitTest(jumper.getHeight() , jumper.getWidth())){ // om spelaren träffar en solid i sidan
-			leftsideHit = true;
-			solid.leftIsSideHit = true;
-			System.out.println("isSideHit");
-		} else {
-			solid.leftIsSideHit = false;
-		}
+				System.out.println("isSideHit");
+			} else {
+			
+				solids.get(i).rightIsSideHit = false;
+			}
 		
-		if (hitbox.rightSideHitTest(jumper.getHeight() , jumper.getWidth())){
-			rightsideHit = true;
-			solid.rightIsSideHit = true;
-			System.out.println("isSideHit");
-		} else {
-			solid.rightIsSideHit = false;
 		}
-		
-		
 		
 	}
 	
+	
+	private void falling() {
+		// TODO Auto-generated method stub
+		for (int i = 0 ; i < solids.size(); i++){
+			System.out.println("Ground  " + isOnGround);
+			if (hitbox.groundHitTestY(solids.get(i) , jumper.getHeight(), jumper.getWidth()) &&
+					hitbox.groundHitTestX(solids.get(i) , jumper.getHeight(), jumper.getWidth())){
+				isOnGround = true; // om spelaren står på marken
+				
+				this.y -= gravity;
+			} 
+		}
+		
+		this.y += gravity;// Gravitation
+
+	}
+
+
 	private void moving(){
 		Input inp = gc.getInput(); // Hämta input objektet till variablen inp
 		
@@ -127,22 +151,25 @@ public class Jumper  {
 			//System.out.println("MovingRight");
 			jumper = movingRight;
 			x += velocity;
-			cameraX += 5;
+			cameraX += velocity;
 			}
 		} else {
+			
 			rightsideHit = false;
-			solid.rightIsSideHit = false;
+			for (int i = 0; i < solids.size(); i++)
+				solids.get(i).rightIsSideHit = false;
 		}
 		if (!leftsideHit){
 			if (inp.isKeyDown(inp.KEY_LEFT)){
 		//	System.out.println("MovingLeft");
 			jumper = movingLeft;
 			x -= velocity;
-			cameraX -= 5;
+			cameraX -= velocity;
 			}
 		} else {
 			leftsideHit = false;
-			solid.leftIsSideHit = false;
+			for (int i = 0; i < solids.size(); i++)
+				solids.get(i).leftIsSideHit = false;
 		}
 		
 		if  (isOnGround){ // om spelaren står på marken kan man hoppa
@@ -152,16 +179,22 @@ public class Jumper  {
 				isOnGround = false;
 				isJumping = true;
 			}
+			
 		}
 		if (isJumping){
 			
-			this.y -= 10;
+			this.y -= 12;
 			if (this.y <= startY - 60){
 				this.y -= 2;
 			}
 			if (this.y <= startY - 130 ){
 				isJumping = false;
 			}
+		}
+		if (y > gc.getHeight()){
+			y = 0;
+			
+			
 		}
 	}
 	

@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,16 +17,17 @@ public class Solid  {
 	private int map;
 	public float x = 300;
 	public float y = 500;
-	private float cameraX = 80;
-	private float cameraY = 50;
+	private float cameraX = 10;
+	private float cameraY = 10;
 	private Image img;
 	private Hitbox hitbox;
+	private ArrayList <Solid> listofSolids = new ArrayList();
 	
 	
 	public boolean leftIsSideHit = false;
 	public boolean rightIsSideHit = true;
 	
-	public Solid (int map, GameContainer gc, StateBasedGame state, Graphics g , Hitbox hitbox , float x, float y ){
+	public Solid (int map, GameContainer gc, StateBasedGame state, Graphics g , Hitbox hitbox , float x, float y , ArrayList<Solid> listofSolids){
 		this.g = g;
 		this.gc = gc;
 		this.state = state;
@@ -32,6 +35,7 @@ public class Solid  {
 		this.hitbox = hitbox; // för att kunna lägga in solidens x/y i hitboxen
 		this.x = x;
 		this.y = y;
+		this.listofSolids = listofSolids;
 		
 		
 	}
@@ -64,14 +68,16 @@ public class Solid  {
 		}
 		if (!leftIsSideHit){
 			if (inp.isKeyDown(inp.KEY_LEFT)){
-			
+
 				cameraX -= 5;
 			}
 		}
+		for(int i = 0; i < listofSolids.size(); i++){
 		hitbox.setSolidX(x - cameraX);
 		hitbox.setSolidY(y - cameraY);
 		hitbox.setSolidWidth(img.getWidth());
 		hitbox.setSolidHeight(img.getHeight());
+		}
 		}
 	}
 	
