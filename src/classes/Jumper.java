@@ -7,9 +7,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Jumper  {
+public class Jumper extends Hitbox  {
 	
 	private float velocity = 5;
 	private float x = 40;
@@ -21,6 +22,7 @@ public class Jumper  {
 	private Graphics g;
 	private GameContainer gc;
 	private StateBasedGame state;
+	private SolidMaker solidmaker;
 	
 	private boolean isOnGround = false;
 	private boolean leftsideHit = false;
@@ -35,13 +37,13 @@ public class Jumper  {
 	
 	
 
-	private ArrayList<Solid> solids = new ArrayList();
+	private ArrayList<Solid> solids = new ArrayList<Solid>();
 	
 	private Hitbox hitbox;
 	
 	
 	
-	public Jumper (GameContainer gc, StateBasedGame state, Graphics g , ArrayList solid, Hitbox hitbox ) {
+	public Jumper (GameContainer gc, StateBasedGame state, Graphics g , ArrayList<Solid> solid, Hitbox hitbox, SolidMaker solidmaker ) {
 		/*
 		 * Nödvändiga objekt för att kunna använda slick
 		 */
@@ -50,6 +52,7 @@ public class Jumper  {
 		this.state = state;
 		this.solids = solid; // för att kunna se var solider befinner sig behöver vi dess objekt
 		this.hitbox = hitbox; // för att kunna lägga in postitioner i hitboxens metoder
+		this.solidmaker = solidmaker;
 		hitbox = new Hitbox();
 		x = gc.getWidth() /2;
 		y = gc.getHeight() / 2  - 40;
@@ -96,8 +99,8 @@ public class Jumper  {
 		
 		moving();// Metod för all rörelse
 		
-		falling();
-		for (int i = 0; i < solids.size(); i++){
+		falling(); // Metod för fall / mark kollison
+		for (int i = 0; i < solids.size(); i++){//Loopa igenom alla solider
 		
 			if (hitbox.leftSideHitTest(jumper.getHeight() , jumper.getWidth())){ // om spelaren träffar en solid i sidan
 				leftsideHit = true;
@@ -108,7 +111,7 @@ public class Jumper  {
 			}
 		}
 		
-		for (int i = 0; i < solids.size(); i++){
+		for (int i = 0; i < solids.size(); i++){ //Loopa igenom alla solider
 			if (hitbox.rightSideHitTest(jumper.getHeight() , jumper.getWidth())){
 				rightsideHit = true;
 				solids.get(i).rightIsSideHit = true;
@@ -126,14 +129,13 @@ public class Jumper  {
 	
 	private void falling() {
 		// TODO Auto-generated method stub
-		for (int i = 0 ; i < solids.size(); i++){
-			System.out.println("Ground  " + isOnGround);
-			if (hitbox.groundHitTestY(solids.get(i) , jumper.getHeight(), jumper.getWidth()) &&
-					hitbox.groundHitTestX(solids.get(i) , jumper.getHeight(), jumper.getWidth())){
+		for (int i = 0 ; i < solids.size(); i++){//Loopa igenom alla solider
+			if (hitbox.groundHitTestY(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth()) &&
+					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
 				isOnGround = true; // om spelaren står på marken
 				
-				this.y -= gravity;
-			} 
+				this.y -= gravity;//Normal kraft
+			}
 		}
 		
 		this.y += gravity;// Gravitation
@@ -192,9 +194,9 @@ public class Jumper  {
 			}
 		}
 		if (y > gc.getHeight()){
-			y = 0;
+			y = 0;//Test del så man slipper starta om
 			
-			
+			//solidmaker.setMap(2); För att byta bana skriver man såhär på den plats man vill ha det
 		}
 	}
 	

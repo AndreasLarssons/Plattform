@@ -32,7 +32,9 @@ public class Game extends StateBasedGame implements Runnable {
 			appgc = new AppGameContainer(new Game(gameName));
 			appgc.setDisplayMode(1280, 720, false);
 			appgc.setTargetFrameRate(60);
+			appgc.setVSync(true);
 			appgc.start();
+			
 
 		} catch (SlickException e) {
 

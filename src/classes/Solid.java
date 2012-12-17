@@ -38,6 +38,7 @@ public class Solid  {
 		this.listofSolids = listofSolids;
 		
 		
+		
 	}
 	
 	public void init (){

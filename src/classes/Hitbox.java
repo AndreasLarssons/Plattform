@@ -3,11 +3,11 @@ package classes;
 public class Hitbox {
 	private float playerX;
 	private float playerY;
-	private float solidX;
-	private float solidY;
 	private float solidWidth;
 	private float solidHeight;
 	private Solid solid;
+	private Hitbox type;
+	private float y;
 	public Hitbox (){
 		
 	}
@@ -15,9 +15,13 @@ public class Hitbox {
 	
 	
 	
-	public boolean groundHitTestX (Solid solid, float playerHeight, float playerWidth){
+	public boolean groundHitTestX (float x,float y, Solid solid, float playerHeight, float playerWidth){
+		/*
+		 * Kolla om spelarens x värde är inom den medskickade solidens x och x+width
+		 */
+		
 		this.solid = solid;
-		if(playerX + playerWidth > solid.x  && playerX
+		if(x + playerWidth > solid.x  && x
 				<= solid.x + solidWidth - 40 ){
 			return true;
 		} else {
@@ -25,28 +29,39 @@ public class Hitbox {
 		}
 	}
 	
-	public boolean groundHitTestY (Solid solid, float playerHeight, float playerWidth){
+	public boolean groundHitTestY (float x, float y,Solid solid, float playerHeight, float playerWidth){
+		/*
+		 * Måste kolla så du kolliderar i y led med en solids y värde, om man
+		 * gör det returnera true, måste kolla spelarens y+1, y-1 osv pågrund av 
+		 * ojämna värden på fallet.
+		 * Om man bara kollar ett värde finns det chans att spelaren har y 501 och soliden y 500
+		 * vilket leder till en miss
+		 * 
+		 */
 		this.solid = solid;
-		if(playerY == solid.y &&  playerY <= solid.y + solidHeight - 10 ){
+		this.y = y;
+		
+		if(this.y == this.solid.y &&  this.y <= this.solid.y + solidHeight - 10 ){
 			return true;
-		} else if (playerY == solid.y + 1 &&  playerY <= solid.y + solidHeight - 10){
+		} else if (this.y ==this.solid.y + 1 &&  this.y <= this.solid.y + solidHeight - 10){
 			return true;
-		} else if (playerY == solid.y + 2&&  playerY <= solid.y + solidHeight - 10){
+		} else if (this.y == this.solid.y + 2&&  this.y <= this.solid.y + solidHeight - 10){
 			return true;
-		}else if (playerY == solid.y + 3 &&  playerY <= solid.y + solidHeight - 10){
+		}else if (this.y == this.solid.y+ 3 &&  this.y <= this.solid.y + solidHeight - 10){
 			return true;
-		} else if (playerY == solid.y + 4 &&  playerY  <= solid.y + solidHeight - 10){
+		} else if (this.y == this.solid.y + 4 &&  this.y  <= this.solid.y + solidHeight - 10){
 			return true;
-		}  else if (playerY == solid.y - 1 &&  playerY  <= solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 1 &&  this.y  <= this.solid.y + solidHeight - 10){
 			return true;
-		}  else if (playerY == solid.y - 2 &&  playerY  <= solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 2 &&  this.y  <= this.solid.y + solidHeight - 10){
 			return true;
-		}  else if (playerY == solid.y - 3 &&  playerY  <= solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 3 &&  this.y  <= this.solid.y + solidHeight - 10){
 			return true;
-		}  else if (playerY == solid.y - 4 &&  playerY  <= solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 4 &&  this.y  <= this.solid.y + solidHeight - 10){
 			return true;
 		} 
 		else {
+			
 			return false;
 		}
 		
@@ -90,10 +105,10 @@ public class Hitbox {
 		this.playerY = playerY;
 	}
 	public void setSolidX (float solidX){
-		this.solidX = solidX;
+	//	this.solidX = solidX;
 	}
 	public void setSolidY (float solidY){
-		this.solidY = solidY;
+	//	this.solidY = solidY;
 	}
 	public void setSolidWidth (float width){
 		this.solidWidth = width;
