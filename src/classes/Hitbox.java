@@ -22,7 +22,7 @@ public class Hitbox {
 		
 		this.solid = solid;
 		if(x + playerWidth > solid.x  && x
-				<= solid.x + solidWidth - 40 ){
+				<= solid.x + solid.width + (playerWidth - 62)){
 			return true;
 		} else {
 			return false;
@@ -43,21 +43,21 @@ public class Hitbox {
 		
 		if(this.y == this.solid.y &&  this.y <= this.solid.y + solidHeight - 10 ){
 			return true;
-		} else if (this.y ==this.solid.y + 1 &&  this.y <= this.solid.y + solidHeight - 10){
+		} else if (this.y ==this.solid.y + 1 &&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		} else if (this.y == this.solid.y + 2&&  this.y <= this.solid.y + solidHeight - 10){
+		} else if (this.y == this.solid.y + 2&&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		}else if (this.y == this.solid.y+ 3 &&  this.y <= this.solid.y + solidHeight - 10){
+		}else if (this.y == this.solid.y + 3 &&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		} else if (this.y == this.solid.y + 4 &&  this.y  <= this.solid.y + solidHeight - 10){
+		} else if (this.y == this.solid.y + 4 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 1 &&  this.y  <= this.solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 1 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 2 &&  this.y  <= this.solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 2 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 3 &&  this.y  <= this.solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 3 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 4 &&  this.y  <= this.solid.y + solidHeight - 10){
+		}  else if (this.y == this.solid.y - 4 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
 		} 
 		else {
@@ -68,6 +68,49 @@ public class Hitbox {
 		
 	}
 	
+	
+	public boolean headHitTest (float x, float y,Solid solid, float playerHeight, float playerWidth){
+		/*
+		 * Måste kolla så du kolliderar i y led med en solids y värde, om man
+		 * gör det returnera true, måste kolla spelarens y+1, y-1 osv pågrund av 
+		 * ojämna värden på fallet.
+		 * Om man bara kollar ett värde finns det chans att spelaren har y 501 och soliden y 500
+		 * vilket leder till en miss
+		 * 
+		 */
+		
+		
+		
+		if(y + playerHeight == solid.y ){
+			return true;
+		} else if (y + playerHeight ==solid.y + 1 ){
+			return true;
+		} else if (y + playerHeight == solid.y + 2){
+			return true;
+		}else if (y + playerHeight == solid.y + 3  ){
+			return true;
+		} else if (y + playerHeight == solid.y + 4){
+			return true;
+		}  else if (y + playerHeight == solid.y - 1  ){
+			return true;
+		}  else if (y + playerHeight == solid.y - 2 ){
+			return true;
+		}  else if (y + playerHeight == solid.y - 3 ){
+			return true;
+		}  else if (y + playerHeight == solid.y - 4  ){
+			return true;
+		} 
+		else {
+			
+			return false;
+		}
+		
+		
+	}
+	
+	
+	
+	
 	public boolean rightSideHitTest(float playerHeight, float playerWidth){
 		/*
 		 * If-satsen nedan kollar om spelaren kolliderar med ett objekt i sidled
@@ -76,7 +119,7 @@ public class Hitbox {
 	//System.out.println("solidX  " + solidX);
 		//System.out.print("playerY  " + playerY + "  ");
 		//System.out.println("solidY  " + (solidY + solidHeight - 10));
-		if(playerX + playerWidth == solid.x && playerY <= solid.y + solidHeight - 10){
+		if(playerX + playerWidth == solid.x && playerY <= solid.y + solid.height - 10){
 			System.out.println("IS Righthit");
 
 			return true;
@@ -86,7 +129,7 @@ public class Hitbox {
 	}
 	
 	public boolean leftSideHitTest (float playerHeight, float playerWidt) {
-		if (playerX == solid.x + solidWidth + 1 && playerY <= solid.y + solidHeight - 10){
+		if (playerX == solid.x + solidWidth + 1 && playerY <= solid.y + solid.height - 10){
 			System.out.println("IS lefthit");
 			
 			return true;

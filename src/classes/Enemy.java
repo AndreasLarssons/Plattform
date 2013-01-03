@@ -9,18 +9,18 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
-import src.Debug;
 
 
 
 public class Enemy extends Hitbox {
 	
-	private float x = 800;
+	private float x = 1000;
 	private float y = 300;
 	private float cameraX = 10;
 	private float cameraY = 10;
 	private float gravity = 4;
-
+	private int direction = 1;
+	private float velocity = 3;
 	
 	
 	private Graphics g;
@@ -34,7 +34,7 @@ public class Enemy extends Hitbox {
 	private Image bg;
 	
 	
-	private Debug debug = new Debug(); //Debug metoder
+	//private Debug debug = new Debug(); //Debug metoder
 
 	
 	public Enemy (GameContainer gc, StateBasedGame state, Graphics g , ArrayList<Solid> solid){
@@ -92,18 +92,45 @@ public class Enemy extends Hitbox {
 	
 	private void falling (){
 		
+		
 		for (int i = 0; i < solids.size(); i++){
 			
-			if (groundHitTestY(x,y, solids.get(i), enemy.getHeight(), enemy.getWidth())&& 
+			if (groundHitTestY(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth()) && 
 					groundHitTestX(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth())){
-				debug.print("HEj");
 				this.y -= gravity;
-				
+				moving();
 				
 			}
 		}
-		this.y += 5;
+		
+		this.y += gravity;
 	}
+	
+	
+	private void moving (){
+		
+		for (int i = 0; i < solids.size(); i++){
+			if (groundHitTestX(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth())){ // Kollar om fienden
+																						//finns innanför en solids x och width
+				
+				if (this.x < solids.get(i).x){
+					direction = -1;//Byt håll
+
+				}
+				
+				if (this.x >= solids.get(i).x + solids.get(i).width - enemy.getWidth()){
+					direction = 1;//Byt håll
+
+				}
+			}
+		}
+		
+		
+		this.x -= velocity * direction;	//Hastighet i x led * vilket håll hastigheten ska vara åt
+	}
+	
+
+	
 	
 	private void respawn (){ //Debug respawn
 		if (this.y > gc.getHeight()){

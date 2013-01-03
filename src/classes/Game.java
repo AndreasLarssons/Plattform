@@ -33,6 +33,10 @@ public class Game extends StateBasedGame implements Runnable {
 			appgc.setDisplayMode(1280, 720, false);
 			appgc.setTargetFrameRate(60);
 			appgc.setVSync(true);
+			appgc.setMultiSample(2);
+			appgc.setClearEachFrame(false);
+			appgc.setSmoothDeltas(true);
+			appgc.setClearEachFrame(true);
 			appgc.start();
 			
 
@@ -51,6 +55,7 @@ public class Game extends StateBasedGame implements Runnable {
 	public void initStatesList(GameContainer gc) throws SlickException {
 		// TODO Auto-generated method stub
 		//Lägga upp states i minnet för senare användning 
+		
 		this.getState(menu).init(gc, this);
 	//	this.getState(game).init(gc, this);
 		this.enterState(menu); // Bestämma start staten

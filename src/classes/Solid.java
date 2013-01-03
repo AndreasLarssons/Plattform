@@ -19,6 +19,8 @@ public class Solid  {
 	public float y = 500;
 	private float cameraX = 10;
 	private float cameraY = 10;
+	public float height;
+	public float width;
 	private Image img;
 	private Hitbox hitbox;
 	private ArrayList <Solid> listofSolids = new ArrayList();
@@ -36,6 +38,7 @@ public class Solid  {
 		this.x = x;
 		this.y = y;
 		this.listofSolids = listofSolids;
+
 		
 		
 		
@@ -49,6 +52,8 @@ public class Solid  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.height = img.getHeight();
+		this.width = img.getWidth();
 		
 	}
 	

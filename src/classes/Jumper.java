@@ -98,7 +98,7 @@ public class Jumper extends Hitbox  {
 		
 		
 		moving();// Metod för all rörelse
-		
+		headHit(); //Metod för kollision i huvudet
 		falling(); // Metod för fall / mark kollison
 		for (int i = 0; i < solids.size(); i++){//Loopa igenom alla solider
 		
@@ -133,13 +133,28 @@ public class Jumper extends Hitbox  {
 			if (hitbox.groundHitTestY(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth()) &&
 					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
 				isOnGround = true; // om spelaren står på marken
-				
 				this.y -= gravity;//Normal kraft
+				
 			}
+			
 		}
 		
 		this.y += gravity;// Gravitation
 
+	}
+	
+	private void headHit (){
+		if (isJumping){
+		
+		for (int i = 0; i < solids.size(); i++){
+			if (hitbox.headHitTest(x, y, solids.get(i), jumper.getHeight(), jumper.getWidth())&&
+					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
+				isJumping = false;
+				System.out.println("wda");
+			
+			}
+		}
+		}
 	}
 
 

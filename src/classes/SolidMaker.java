@@ -33,8 +33,10 @@ public class SolidMaker  {
 	private void makeSolids(){ //Skapa solider beroende på banan
 		if (map == 1){
 		listofSolids.add(new Solid(1, gc, state, g, hitbox,  1000,  500, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  550,  500, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  500,  500, listofSolids));
     	listofSolids.add(new Solid(1, gc, state, g, hitbox,  1500,  500, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  500,  350, listofSolids));
+    	
 		} else if (map == 2){
 			
 		}
