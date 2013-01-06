@@ -35,12 +35,20 @@ public class SolidMaker  {
 		listofSolids.add(new Solid(1, gc, state, g, hitbox,  1000,  500, listofSolids));
     	listofSolids.add(new Solid(1, gc, state, g, hitbox,  500,  500, listofSolids));
     	listofSolids.add(new Solid(1, gc, state, g, hitbox,  1500,  500, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  500,  350, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  2000,  450, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  2500,  400, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  3000,  350, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  3500,  400, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  4000,  450, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  4500,  500, listofSolids));
+    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  5000,  500, listofSolids));
     	
 		} else if (map == 2){
 			
 		}
 	}
+	
+	
 	public ArrayList<Solid> getSolids(){ //Få soliderna
 		
 		return listofSolids;

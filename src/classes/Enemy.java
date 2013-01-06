@@ -2,6 +2,7 @@ package classes;
 
 import java.awt.print.Printable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -14,8 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Enemy extends Hitbox {
 	
-	private float x = 1000;
-	private float y = 300;
+	private float x;
+	private float y;
 	private float cameraX = 10;
 	private float cameraY = 10;
 	private float gravity = 4;
@@ -37,10 +38,13 @@ public class Enemy extends Hitbox {
 	//private Debug debug = new Debug(); //Debug metoder
 
 	
-	public Enemy (GameContainer gc, StateBasedGame state, Graphics g , ArrayList<Solid> solid){
+	public Enemy (GameContainer gc, StateBasedGame state, Graphics g , ArrayList<Solid> solid, float x, float y){
+		this.x = x;
+		this.y = y;
 		this.g = g;
 		this.gc = gc;
 		this.state = state;
+		
 		this.solids = solid; // för att kunna se var solider befinner sig behöver vi dess objekt
 	}
 	
@@ -114,12 +118,13 @@ public class Enemy extends Hitbox {
 																						//finns innanför en solids x och width
 				
 				if (this.x < solids.get(i).x){
-					direction = -1;//Byt håll
-
+					direction = -1;//Gå åt höger
+					enemy = movingRight;;
 				}
 				
 				if (this.x >= solids.get(i).x + solids.get(i).width - enemy.getWidth()){
-					direction = 1;//Byt håll
+					enemy = movingLeft;
+					direction = 1;//Gå åt vänster
 
 				}
 			}

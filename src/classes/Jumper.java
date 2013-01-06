@@ -149,8 +149,8 @@ public class Jumper extends Hitbox  {
 		for (int i = 0; i < solids.size(); i++){
 			if (hitbox.headHitTest(x, y, solids.get(i), jumper.getHeight(), jumper.getWidth())&&
 					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
-				isJumping = false;
-				System.out.println("wda");
+			//	isJumping = false;
+			//	System.out.println("wda");
 			
 			}
 		}

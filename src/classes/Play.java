@@ -19,37 +19,46 @@ public class Play extends BasicGameState {
 	private Image background;
 	private Hitbox hitbox;
 	private SolidMaker solidmaker;
+	private EnemyMaker enemymaker;
 	public int map;
 	public ArrayList<Solid> listofSolids = new ArrayList<Solid>();
-	public ArrayList <Enemy> listofEnemys = new ArrayList<Enemy>();
-	private Enemy enemy;
+	public ArrayList <Enemy> listofEnemies = new ArrayList<Enemy>();
+	
 	
 
 	public Play (int map) throws SlickException{
 		this.map = map;
 		listofSolids.clear();
+		listofEnemies.clear();
 		
 	}
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
 		hitbox = new Hitbox();
+		
 		solidmaker = new SolidMaker(map, hitbox, gc, state, g, this);
+		
 	    listofSolids = 	solidmaker.getSolids();
-	    	
-	    
+	   
 	    
 		
 		jumper = new Jumper(gc, state, g, listofSolids, hitbox, solidmaker); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
+		enemymaker = new EnemyMaker(map, gc, state, g, listofSolids);
+		listofEnemies = enemymaker.getEnemies();
 		
-		enemy = new Enemy(gc, state, g, listofSolids);
-		enemy.init();
+		for (int i = 0; i < listofEnemies.size(); i++){
+			listofEnemies.get(i).init();
+		}
+		
 		
 		for (int i = 0; i < listofSolids.size(); i++){
 			listofSolids.get(i).init();
 		 
 		}
+		
+		
 		
 	
 	}
@@ -59,23 +68,33 @@ public class Play extends BasicGameState {
 	//	background.draw(0,0);
 		this.g = g; // lägga det specifika grafikobjektet i en variabel
 		jumper.render(); //kör jumperns render metod
-		enemy.render();
+		
+		for (int i = 0; i < listofEnemies.size(); i++){
+			listofEnemies.get(i).render();
+		}
+		
 		for (int i = 0; i < listofSolids.size(); i++){
 			 listofSolids.get(i).render();
 			 			 
 			}
-	
+		
 	
 	}
 	@Override
 	public void update(GameContainer gc, StateBasedGame state, int update)
 			throws SlickException {
 		jumper.update(); //kör jumperns update metod
-		enemy.update();
+		
+		for (int i = 0; i < listofEnemies.size(); i++){
+			listofEnemies.get(i).update();
+		}
+
 		for (int i = 0; i < listofSolids.size(); i++){
 			 listofSolids.get(i).update();
 			 
 		}
+		
+		
 	}
 	@Override
 	public int getID() {
