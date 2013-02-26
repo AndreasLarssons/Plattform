@@ -15,22 +15,24 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Enemy extends Hitbox {
 	
-	private float x;
-	private float y;
-	private float cameraX = 10;
+	protected float x;
+	protected float y;
+	public float cameraX = 10;
 	private float cameraY = 10;
-	private float gravity = 4;
-	private int direction = 1;
-	private float velocity = 3;
+	protected float gravity = 4;
+	protected int direction = 1;
+	protected float velocity = 3;
 	
 	
 	private Graphics g;
 	private GameContainer gc;
 	private StateBasedGame state;
-	private ArrayList<Solid> solids = new ArrayList<Solid>();
+	protected ArrayList<Solid> solids = new ArrayList<Solid>();
 	
 	
-	private Animation jump, movingLeft, movingRight, enemy, front;
+	private Animation jump, movingLeft, movingRight;
+	public Animation enemy;
+	private Animation front;
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
 	private Image bg;
 	
@@ -81,20 +83,10 @@ public class Enemy extends Hitbox {
 		respawn();//Debug metod
 		
 		
-			if (inp.isKeyDown(inp.KEY_RIGHT)){
 			
-				cameraX += 5;
-			}
-		
-		
-			if (inp.isKeyDown(inp.KEY_LEFT)){
-
-				cameraX -= 5;
-		
-			}
 	}
 	
-	private void falling (){
+	protected void falling (){
 		
 		
 		for (int i = 0; i < solids.size(); i++){
@@ -102,7 +94,7 @@ public class Enemy extends Hitbox {
 			if (groundHitTestY(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth()) && 
 					groundHitTestX(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth())){
 				this.y -= gravity;
-				moving();
+				moving();// Om den står på marken ska den röra sig
 				
 			}
 		}
@@ -111,7 +103,7 @@ public class Enemy extends Hitbox {
 	}
 	
 	
-	private void moving (){
+	protected void moving (){
 		
 		for (int i = 0; i < solids.size(); i++){
 			if (groundHitTestX(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth())){ // Kollar om fienden

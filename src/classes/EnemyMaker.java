@@ -28,12 +28,16 @@ public class EnemyMaker {
 	
 	
 	private void makeEnemies (){ // Skapa fienderna
-		if (map == 1){
+		if (map == 1){//Vilken bana
 			enemies.add(new Enemy(gc, state, g, solids,500,200));
-			enemies.add(new Enemy(gc, state, g, solids,1000,200));
-			enemies.add(new Enemy(gc, state, g, solids,1500,200));
-			enemies.add(new Enemy(gc, state, g, solids,2000,200));
+			enemies.add(new EnemyNoStop(gc, state, g, solids,500,400));
+			//enemies.add(new Enemy(gc, state, g, solids,1500,200));
+			//enemies.add(new Enemy(gc, state, g, solids,2000,200));
+			
+		} else if (map == 2){
+			
 		}
+		
 	}
 	
 public ArrayList<Enemy> getEnemies(){ //Få fienderna

@@ -37,16 +37,18 @@ public class Play extends BasicGameState {
 			throws SlickException {
 		hitbox = new Hitbox();
 		
+
 		solidmaker = new SolidMaker(map, hitbox, gc, state, g, this);
-		
+		Damage dmg = new Damage(gc, gc.getGraphics(), solidmaker, hitbox);
 	    listofSolids = 	solidmaker.getSolids();
 	   
 	    
 		
-		jumper = new Jumper(gc, state, g, listofSolids, hitbox, solidmaker); // Skapa ny instance av jumper
-		jumper.init(); //kör jumperns init metod
+		
 		enemymaker = new EnemyMaker(map, gc, state, g, listofSolids);
 		listofEnemies = enemymaker.getEnemies();
+		jumper = new Jumper(dmg, gc, state, g, listofSolids, listofEnemies, hitbox, solidmaker); // Skapa ny instance av jumper
+		jumper.init(); //kör jumperns init metod
 		
 		for (int i = 0; i < listofEnemies.size(); i++){
 			listofEnemies.get(i).init();

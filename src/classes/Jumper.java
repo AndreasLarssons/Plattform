@@ -10,7 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Jumper extends Hitbox  {
+public class Jumper  {
 	
 	private float velocity = 5;
 	private float x = 40;
@@ -18,6 +18,7 @@ public class Jumper extends Hitbox  {
 	private float cameraX = 10;
 	private float cameraY = 10;
 	private float gravity = 4;
+	private float bgX = 0;
 
 	private Graphics g;
 	private GameContainer gc;
@@ -29,30 +30,35 @@ public class Jumper extends Hitbox  {
 	private boolean rightsideHit = false;
 	private boolean isJumping = false;
 	private float startY;
+	private boolean isDead = false;
 
 	private Animation jump, movingLeft, movingRight, jumper, front;
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
 	private Image bg;
 	
+	private ArrayList <Bullet> bullets = new ArrayList<Bullet>();
 	
-	
+	private ArrayList <Enemy> enemies = new ArrayList<Enemy>();
 
 	private ArrayList<Solid> solids = new ArrayList<Solid>();
-	
+	private Damage dmg;
 	private Hitbox hitbox;
+	private Checkpoint checkpoint = new Checkpoint();
 	
 	
 	
-	public Jumper (GameContainer gc, StateBasedGame state, Graphics g , ArrayList<Solid> solid, Hitbox hitbox, SolidMaker solidmaker ) {
+	public Jumper (Damage dmg, GameContainer gc, StateBasedGame state, Graphics g , ArrayList<Solid> solid , ArrayList<Enemy> enemies, Hitbox hitbox, SolidMaker solidmaker ) {
 		/*
 		 * Nödvändiga objekt för att kunna använda slick
 		 */
 		this.g = g;
+		this.dmg = dmg;
 		this.gc = gc;
 		this.state = state;
 		this.solids = solid; // för att kunna se var solider befinner sig behöver vi dess objekt
 		this.hitbox = hitbox; // för att kunna lägga in postitioner i hitboxens metoder
 		this.solidmaker = solidmaker;
+		this.enemies = enemies;
 		hitbox = new Hitbox();
 		x = gc.getWidth() /2;
 		y = gc.getHeight() / 2  - 40;
@@ -63,6 +69,7 @@ public class Jumper extends Hitbox  {
 		/*
 		 * Array med varje bild som ska animeras 
 		 */
+		
 		try{
 			
 			bg = new Image("res/background.png");
@@ -86,44 +93,81 @@ public class Jumper extends Hitbox  {
 	}
 	
 	public void render(){
-		bg.draw(0 - cameraX,0);
+		bg.draw(bgX - cameraX,0);
 		jumper.draw(x - cameraX, y - cameraY);
-		
+		dmg.render();
 	}
 	
 	public void update(){
 		
 		hitbox.setPlayerX(x);//Ger hitboxen spelarens x/y värden
 		hitbox.setPlayerY(y);
-		
+		dmg.update();
 		
 		moving();// Metod för all rörelse
 		headHit(); //Metod för kollision i huvudet
 		falling(); // Metod för fall / mark kollison
-		for (int i = 0; i < solids.size(); i++){//Loopa igenom alla solider
 		
-			if (hitbox.leftSideHitTest(jumper.getHeight() , jumper.getWidth())){ // om spelaren träffar en solid i sidan
-				leftsideHit = true;
-				solids.get(i).leftIsSideHit = true;
-				System.out.println("isSideHit");
-			} else {
-				solids.get(i).leftIsSideHit = false;
+		
+		if (gc.getInput().isKeyDown(gc.getInput().KEY_SPACE)){
+			try {
+				shoot();
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		sideHit();
+		enemyHit();
+		renderBullet();
+		updateBullet();
+		
+		
+	}	
+	
+	private void sideHit (){
+		
+		for (int i = 0 ; i < solids.size(); i++){
+			if (hitbox.leftSideHitTest(x, y, jumper.getWidth(), jumper.getHeight(), solids.get(i) )){
+				this.x += velocity;
+				this.cameraX += velocity;
+				
+				for (int x = 0; x < solids.size(); x++){
+					solids.get(x).cameraX += velocity;
+				}
+				
+				for (int a = 0; a < enemies.size(); a++){
+					enemies.get(a).cameraX += velocity;
+				}
+				
+				
+				//solids.get(i).cameraX += 5 / solids.size();
+				//solids.get(i).isSideHit = true;
+				
+				
+			
+				
+			} else if (hitbox.rightSideHitTest(x, y, jumper.getWidth(), jumper.getHeight(), solids.get(i))){
+				this.x -= velocity;
+				this.cameraX -= velocity;
+				//solids.get(i).cameraX -= 5 / solids.size();
+				//solids.get(i).isSideHit = true;
+				
+				for (int x = 0; x < solids.size(); x++){
+					solids.get(x).cameraX -= velocity;
+				}
+				
+				for (int a = 0; a < enemies.size(); a++){
+					enemies.get(a).cameraX -= velocity;
+				}
+				
+				
+				
 			}
 		}
 		
-		for (int i = 0; i < solids.size(); i++){ //Loopa igenom alla solider
-			if (hitbox.rightSideHitTest(jumper.getHeight() , jumper.getWidth())){
-				rightsideHit = true;
-				solids.get(i).rightIsSideHit = true;
-			
-				System.out.println("isSideHit");
-			} else {
-			
-				solids.get(i).rightIsSideHit = false;
-			}
 		
-		}
-		
+			
 	}
 	
 	
@@ -149,7 +193,7 @@ public class Jumper extends Hitbox  {
 		for (int i = 0; i < solids.size(); i++){
 			if (hitbox.headHitTest(x, y, solids.get(i), jumper.getHeight(), jumper.getWidth())&&
 					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
-			//	isJumping = false;
+				isJumping = false;
 			//	System.out.println("wda");
 			
 			}
@@ -163,31 +207,39 @@ public class Jumper extends Hitbox  {
 		
 		// Kollar om spelaren kolliderar med ett objekt i sidled
 		//System.out.println("isrighthit  " + rightsideHit + "      islefthit  "+ leftsideHit);
-		if(!rightsideHit){
+		
 			if (inp.isKeyDown(inp.KEY_RIGHT)){
 			//System.out.println("MovingRight");
-			jumper = movingRight;
-			x += velocity;
-			cameraX += velocity;
+				jumper = movingRight;
+				x += velocity;
+				cameraX += velocity;
+				for (int i = 0; i < solids.size(); i++){
+					solids.get(i).cameraX += velocity;
+				}
+				
+				for (int a = 0; a < enemies.size(); a++){
+					enemies.get(a).cameraX += velocity;
+				}
+				
+				
 			}
-		} else {
-			
-			rightsideHit = false;
-			for (int i = 0; i < solids.size(); i++)
-				solids.get(i).rightIsSideHit = false;
-		}
-		if (!leftsideHit){
+	
+	
 			if (inp.isKeyDown(inp.KEY_LEFT)){
 		//	System.out.println("MovingLeft");
-			jumper = movingLeft;
-			x -= velocity;
-			cameraX -= velocity;
+				jumper = movingLeft;
+				x -= velocity;
+				cameraX -= velocity;
+				for (int i = 0; i < solids.size(); i++){
+					solids.get(i).cameraX -= 5;
+				}
+				
+				for (int a = 0; a < enemies.size(); a++){
+					enemies.get(a).cameraX -= velocity;
+				}
+				
 			}
-		} else {
-			leftsideHit = false;
-			for (int i = 0; i < solids.size(); i++)
-				solids.get(i).leftIsSideHit = false;
-		}
+		
 		
 		if  (isOnGround){ // om spelaren står på marken kan man hoppa
 			if (inp.isKeyDown(inp.KEY_UP)){
@@ -208,15 +260,69 @@ public class Jumper extends Hitbox  {
 				isJumping = false;
 			}
 		}
-		if (y > gc.getHeight()){
-			y = 0;//Test del så man slipper starta om
+		if (y == gc.getHeight()){//Dö när man faller ner
+			dmg.takeDamage();
+			isDead = true;
+			//y = 0;//Test del så man slipper starta om
 			
 			//solidmaker.setMap(2); För att byta bana skriver man såhär på den plats man vill ha det
 		}
+		
+		if (isDead){
+			respawn(x,y);
+		}
+		
 	}
 	
+	private void respawn(float x, float y){
+		
+		//this.x = checkpoint.getCheckpoint(x);
+		this.x = x;
+		System.out.println(checkpoint.getCheckpoint(x));
+		this.y = 0;
+		isDead = false;
+	}
 	
+	private void enemyHit () {
+		for (int i = 0; i < enemies.size(); i++){
+			if (hitbox.enemyHitTest( x, y, enemies.get(i), jumper.getWidth(), jumper.getHeight())){
+				dmg.takeDamage();
+				isDead = true;
+			}
+		}
+	}
+	
+	private void shoot() throws SlickException{
+			
+		//System.out.println("awda");
+		bullets.add(new Bullet(solids,hitbox,x,y, gc.getGraphics()));
+		bullets.get(0).init();
+		renderBullet();
+		updateBullet();
 	
 
 
+	}
+	
+	private void renderBullet (){
+		for (int i = 0; i < bullets.size(); i++){
+			try {
+				bullets.get(i).render();
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void updateBullet (){
+		for (int i = 0; i < bullets.size(); i++){
+			try {
+				bullets.get(i).update();
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

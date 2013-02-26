@@ -14,7 +14,7 @@ public class SolidMaker  {
 	private Graphics g;
 	private GameContainer gc;
 	private StateBasedGame state;
-	private int map;
+	public int map;
 	private Hitbox hitbox;
 	private Play play;
 	private ArrayList<Solid> listofSolids = new ArrayList<Solid>();
@@ -27,24 +27,37 @@ public class SolidMaker  {
 		this.gc = gc;
 		this.state = state;
 		this.play = play;
-		makeSolids();
+		makeSolids();//Skapa solider
 	}
 	
 	private void makeSolids(){ //Skapa solider beroende på banan
-		if (map == 1){
-		listofSolids.add(new Solid(1, gc, state, g, hitbox,  1000,  500, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  500,  500, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  1500,  500, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  2000,  450, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  2500,  400, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  3000,  350, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  3500,  400, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  4000,  450, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  4500,  500, listofSolids));
-    	listofSolids.add(new Solid(1, gc, state, g, hitbox,  5000,  500, listofSolids));
-    	
+		/*
+		 * Solid skapandet ska ske enligt syntaxen
+		 * 	listofSolids.add(new Solid(new Image("var bilden finns"),1, gc, state, g, hitbox,  x-position,  y-position, listofSolids));
+		 */
+		
+		if (map == 1){//Första banan
+			try {
+		listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  700,  400, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  500,  500, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  300,  400, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  1000,  450, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  1400,  450, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  1700,  450, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  2000,  450, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  2500,  400, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  3000,  350, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  3500,  400, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  4000,  450, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  4500,  500, listofSolids));
+    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  5000,  500, listofSolids));
+			} catch (Exception e){}
 		} else if (map == 2){
-			
+			try {
+				listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  700,  400, listofSolids));
+				listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  500,  300, listofSolids));
+
+			} catch (SlickException e) {}
 		}
 	}
 	
@@ -54,12 +67,12 @@ public class SolidMaker  {
 		return listofSolids;
 	}
 	
-	public void setMap (int map){
-		this.map = map;
+	public void setMap (int map){//För att ändra banan anropas denna metod
+		this.map = map; 
 		makeSolids();
 		play.map = map;
 		try {
-			play.init(gc, state);
+			play.init(gc, state); // Starta om play klassen vilket kommer rita om banan efter vilken siffra variabeln map är
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

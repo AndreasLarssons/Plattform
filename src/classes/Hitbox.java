@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.ArrayList;
+
 public class Hitbox {
 	private float playerX;
 	private float playerY;
@@ -22,7 +24,7 @@ public class Hitbox {
 		
 		this.solid = solid;
 		if(x + playerWidth > solid.x  && x
-				<= solid.x + solid.width + (playerWidth - 62)){
+				<= solid.x + solid.width + (playerWidth - 62)){ // - 62 är en konstant då inget överlapp sker
 			return true;
 		} else {
 			return false;
@@ -41,23 +43,23 @@ public class Hitbox {
 		this.solid = solid;
 		this.y = y;
 		
-		if(this.y == this.solid.y &&  this.y <= this.solid.y + solidHeight - 10 ){
+		if(this.y + playerWidth + 10 == this.solid.y &&  this.y <= this.solid.y + solidHeight - 10 ){
 			return true;
-		} else if (this.y ==this.solid.y + 1 &&  this.y <= this.solid.y + solid.height - 10){
+		} else if (this.y + playerWidth + 10 ==this.solid.y + 1 &&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		} else if (this.y == this.solid.y + 2&&  this.y <= this.solid.y + solid.height - 10){
+		} else if (this.y + playerWidth + 10 == this.solid.y + 2&&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		}else if (this.y == this.solid.y + 3 &&  this.y <= this.solid.y + solid.height - 10){
+		}else if (this.y + playerWidth + 10 == this.solid.y + 3 &&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		} else if (this.y == this.solid.y + 4 &&  this.y  <= this.solid.y + solid.height - 10){
+		} else if (this.y + playerWidth + 10 == this.solid.y + 4 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 1 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerWidth + 10 == this.solid.y - 1 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 2 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerWidth + 10 == this.solid.y - 2 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 3 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerWidth + 10 == this.solid.y - 3 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y == this.solid.y - 4 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerWidth + 10 == this.solid.y - 4 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
 		} 
 		else {
@@ -81,23 +83,23 @@ public class Hitbox {
 		
 		
 		
-		if(y + playerHeight == solid.y ){
+		if(y - playerHeight == solid.y ){
 			return true;
-		} else if (y + playerHeight ==solid.y + 1 ){
+		} else if (y - playerHeight == solid.y + 1 ){
 			return true;
-		} else if (y + playerHeight == solid.y + 2){
+		} else if (y - playerHeight == solid.y + 2){
 			return true;
-		}else if (y + playerHeight == solid.y + 3  ){
+		}else if (y - playerHeight == solid.y + 3  ){
 			return true;
-		} else if (y + playerHeight == solid.y + 4){
+		} else if (y - playerHeight == solid.y + 4){
 			return true;
-		}  else if (y + playerHeight == solid.y - 1  ){
+		}  else if (y - playerHeight == solid.y - 1  ){
 			return true;
-		}  else if (y + playerHeight == solid.y - 2 ){
+		}  else if (y - playerHeight == solid.y - 2 ){
 			return true;
-		}  else if (y + playerHeight == solid.y - 3 ){
+		}  else if (y - playerHeight == solid.y - 3 ){
 			return true;
-		}  else if (y + playerHeight == solid.y - 4  ){
+		}  else if (y - playerHeight == solid.y - 4  ){
 			return true;
 		} 
 		else {
@@ -108,18 +110,29 @@ public class Hitbox {
 		
 	}
 	
+	public boolean enemyHitTest (float x, float y, Enemy enemy, float width, float height){
+		
+		if (x + width > enemy.x && x < enemy.x + enemy.enemy.getWidth() && 
+				y + height > enemy.y && y < enemy.y + enemy.enemy.getHeight()){
+			System.out.println("JA");
+			return true;
+			
+		}
+		return false;
+	}
 	
 	
 	
-	public boolean rightSideHitTest(float playerHeight, float playerWidth){
+	
+	public boolean rightSideHitTest(float x, float y, float width, float height, Solid solid){
 		/*
 		 * If-satsen nedan kollar om spelaren kolliderar med ett objekt i sidled
 		 * 
 		 */
-	//System.out.println("solidX  " + solidX);
+	
 		//System.out.print("playerY  " + playerY + "  ");
 		//System.out.println("solidY  " + (solidY + solidHeight - 10));
-		if(playerX + playerWidth == solid.x && playerY <= solid.y + solid.height - 10){
+		if(x + width == solid.x && y + height >= solid.y && y <= solid.y + solid.height){
 			System.out.println("IS Righthit");
 
 			return true;
@@ -128,8 +141,8 @@ public class Hitbox {
 		}
 	}
 	
-	public boolean leftSideHitTest (float playerHeight, float playerWidt) {
-		if (playerX == solid.x + solidWidth + 1 && playerY <= solid.y + solid.height - 10){
+	public boolean leftSideHitTest (float x, float y, float width, float height , Solid solid) {
+		if (x == solid.x + solid.width && y + height >= solid.y && y <= solid.y + solid.height){
 			System.out.println("IS lefthit");
 			
 			return true;
@@ -147,24 +160,14 @@ public class Hitbox {
 	public void setPlayerY (float playerY){
 		this.playerY = playerY;
 	}
-	public void setSolidX (float solidX){
-	//	this.solidX = solidX;
-	}
-	public void setSolidY (float solidY){
-	//	this.solidY = solidY;
-	}
-	public void setSolidWidth (float width){
-		this.solidWidth = width;
-	}
-	public void setSolidHeight(float height){
-		this.solidHeight = height;
-	}
-	
-	
-	
-	
 	
 }
+	
+	
+	
+	
+	
+
 
 
 
