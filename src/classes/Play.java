@@ -47,7 +47,7 @@ public class Play extends BasicGameState {
 		
 		enemymaker = new EnemyMaker(map, gc, state, g, listofSolids);
 		listofEnemies = enemymaker.getEnemies();
-		jumper = new Jumper(dmg, gc, state, g, listofSolids, listofEnemies, hitbox, solidmaker); // Skapa ny instance av jumper
+		jumper = new Jumper(dmg, gc, state, gc.getGraphics(), listofSolids, listofEnemies, hitbox, solidmaker); // Skapa ny instance av jumper
 		jumper.init(); //kör jumperns init metod
 		
 		for (int i = 0; i < listofEnemies.size(); i++){

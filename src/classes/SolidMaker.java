@@ -38,19 +38,9 @@ public class SolidMaker  {
 		
 		if (map == 1){//Första banan
 			try {
-		listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  700,  400, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  500,  500, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  300,  400, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  1000,  450, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  1400,  450, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  1700,  450, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  2000,  450, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  2500,  400, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  3000,  350, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  3500,  400, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  4000,  450, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  4500,  500, listofSolids));
-    	listofSolids.add(new Solid(new Image("res/solidBlock.png"),1, gc, state, g, hitbox,  5000,  500, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  700,  400, listofSolids));
+				listofSolids.add(new Solid(new Image("res/solidblock.png"),1, gc, state, g, hitbox,  1300,  400, listofSolids));
+    	
 			} catch (Exception e){}
 		} else if (map == 2){
 			try {

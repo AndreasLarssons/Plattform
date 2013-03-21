@@ -70,7 +70,7 @@ public class Damage {
 	}
 	
 	private void onDeath (){
-		g.drawString("YOU ARE DEAD", gc.getWidth() / 2, gc.getHeight() / 2);
+	//	g.drawString("YOU ARE DEAD", gc.getWidth() / 2, gc.getHeight() / 2);
 		solidmaker.setMap(map);
 		
 	}

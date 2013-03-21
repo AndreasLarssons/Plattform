@@ -119,8 +119,7 @@ public class Jumper  {
 		}
 		sideHit();
 		enemyHit();
-		renderBullet();
-		updateBullet();
+	
 		
 		
 	}	
@@ -268,7 +267,7 @@ public class Jumper  {
 			//solidmaker.setMap(2); För att byta bana skriver man såhär på den plats man vill ha det
 		}
 		
-		if (isDead){
+		if (isDead){// Om man är död
 			respawn(x,y);
 		}
 		
@@ -283,10 +282,10 @@ public class Jumper  {
 		isDead = false;
 	}
 	
-	private void enemyHit () {
+	private void enemyHit () {//Kolla om du kolliderar med fiender
 		for (int i = 0; i < enemies.size(); i++){
 			if (hitbox.enemyHitTest( x, y, enemies.get(i), jumper.getWidth(), jumper.getHeight())){
-				dmg.takeDamage();
+				dmg.takeDamage();//Ta skada
 				isDead = true;
 			}
 		}
@@ -295,8 +294,10 @@ public class Jumper  {
 	private void shoot() throws SlickException{
 			
 		//System.out.println("awda");
-		bullets.add(new Bullet(solids,hitbox,x,y, gc.getGraphics()));
-		bullets.get(0).init();
+		Bullet bul = new Bullet(solids, hitbox, x, y, g); 
+		bul.init();
+		bul.render();
+		//bullets.get(0).init();
 		renderBullet();
 		updateBullet();
 	

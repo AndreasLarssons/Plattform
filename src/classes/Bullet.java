@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -22,6 +23,7 @@ public class Bullet {
 	private float x = 100;
 	private float y;
 	private Graphics g;
+	private Animation anim;
 
 	public Bullet (ArrayList<Solid> solid, Hitbox hitbox, float x , float y, Graphics g){
 		this.playerX = x;
@@ -43,7 +45,9 @@ public class Bullet {
 	public void init()
 			throws SlickException {
 		// TODO Auto-generated method stub
-		img = new Image("res/hero.png");
+		int [] duration = {60,60};
+		Image imgArray[] = {new Image("res/hero.png"),new Image("res/hero.png")};
+		 anim = new Animation(imgArray, duration , false);
 	}
 
 
@@ -51,8 +55,9 @@ public class Bullet {
 	public void render()
 			throws SlickException {
 		// TODO Auto-generated method stub
-		//System.out.println("wad");
-		img.draw(x, 300);
+		System.out.println("wad");
+		//img.draw(x, 300);
+		anim.draw(300,300);
 		
 	}
 
