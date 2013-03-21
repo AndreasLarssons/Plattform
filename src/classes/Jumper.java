@@ -17,7 +17,7 @@ public class Jumper  {
 	private float y = 40;
 	private float cameraX = 10;
 	private float cameraY = 10;
-	private float gravity = 4;
+	private float gravity = 5;
 	private float bgX = - 1000;
 	private float jumpspeed = 10;
 	private float jumpheight = 200; // Ju mer desto högre
@@ -189,12 +189,16 @@ public class Jumper  {
 	}
 	
 	private void headHit (){
-		if (isJumping){
-		
+		if (isJumping && !isOnGround){
+			
 		for (int i = 0; i < solids.size(); i++){
+			
 			if (hitbox.headHitTest(x, y, solids.get(i), jumper.getHeight(), jumper.getWidth())&&
 					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
+				
 				isJumping = false;
+				
+				
 			//	System.out.println("wda");
 			
 			}
@@ -275,7 +279,7 @@ public class Jumper  {
 		if (y == gc.getHeight()){//Dö när man faller ner
 			dmg.takeDamage();
 			isDead = true;
-			//y = 0;//Test del så man slipper starta om
+			//this.y = 0;//Test del så man slipper starta om
 			
 			//solidmaker.setMap(2); För att byta bana skriver man såhär på den plats man vill ha det
 		}
