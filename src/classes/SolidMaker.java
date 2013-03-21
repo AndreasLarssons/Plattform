@@ -49,7 +49,14 @@ public class SolidMaker  {
 				listofSolids.add(new Solid(new Image("res/Solid_w256.png"),1, gc, state, g, hitbox,  3880,  400, listofSolids));
 				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  4200,  280, listofSolids));
 				listofSolids.add(new Solid(new Image("res/Solid_h512.png"),1, gc, state, g, hitbox,  4800,  50, listofSolids));
-				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  4300,  550, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  4400,  650, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w1024.png"),1, gc, state, g, hitbox,  4400,  650, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  4400,  650, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  5600,  550, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  6200,  380, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  6900,  250, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w1024.png"),1, gc, state, g, hitbox,  7500,  380, listofSolids));
+				
 			} catch (Exception e){}
 		} else if (map == 2){
 			try {
@@ -67,6 +74,7 @@ public class SolidMaker  {
 	}
 	
 	public void setMap (int map){//För att ändra banan anropas denna metod
+		listofSolids.clear();
 		this.map = map; 
 		makeSolids();
 		play.map = map;

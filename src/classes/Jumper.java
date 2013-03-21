@@ -199,7 +199,7 @@ public class Jumper  {
 				isJumping = false;
 				
 				
-			//	System.out.println("wda");
+				System.out.println("wda");
 			
 			}
 		}
@@ -263,6 +263,7 @@ public class Jumper  {
 				startY = this.y;
 				isOnGround = false;
 				isJumping = true;
+				
 			}
 			
 		}
@@ -274,9 +275,11 @@ public class Jumper  {
 			}
 			if (this.y <= startY - jumpheight ){
 				isJumping = false;
+				isOnGround = false;
+				
 			}
 		}
-		if (y == gc.getHeight()){//Dö när man faller ner
+		if (y > gc.getHeight()){//Dö när man faller ner
 			dmg.takeDamage();
 			isDead = true;
 			//this.y = 0;//Test del så man slipper starta om
@@ -285,16 +288,15 @@ public class Jumper  {
 		}
 		
 		if (isDead){// Om man är död
-			respawn(x,y);
+			respawn(x);
 		}
 		
 	}
 	
-	private void respawn(float x, float y){
+	private void respawn(float x){
 		
 		//this.x = checkpoint.getCheckpoint(x);
 		this.x = x;
-		System.out.println(checkpoint.getCheckpoint(x));
 		this.y = 0;
 		isDead = false;
 	}

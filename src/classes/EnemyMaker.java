@@ -32,7 +32,7 @@ public class EnemyMaker {
 			enemies.add(new Enemy(gc, state, g, solids,1240,0));
 			enemies.add(new Enemy(gc, state, g, solids,1900,0));
 			enemies.add(new Enemy(gc, state, g, solids,2600,0));
-			
+			enemies.add(new Enemy(gc, state, g, solids,6200,0));
 			//enemies.add(new Enemy(gc, state, g, solids,1500,200));
 			//enemies.add(new Enemy(gc, state, g, solids,2000,200));
 			

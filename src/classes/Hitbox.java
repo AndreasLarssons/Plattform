@@ -84,23 +84,28 @@ public class Hitbox {
 		
 		if(y == solid.y ){
 			return true;
-		} else if (y  + 1 == solid.y + solid.height ){
+		} else if (y == solid.y + solid.height + 1 ){
 			return true;
-		} else if (y  + 2 == solid.y  + solid.height ){
+		} else if (y == solid.y  + solid.height  + 2){
 			return true;
-		}else if (y  + 3 == solid.y  + solid.height   ){
+		}else if (y == solid.y  + solid.height  + 3  ){
 			return true;
-		} else if (y  + 4 == solid.y  + solid.height ){
+		} else if (y == solid.y  + solid.height  + 4){
 			return true;
-		}  else if (y   - 1  == solid.y  + solid.height ){
+		} else if (y == solid.y  + solid.height  + 5){
 			return true;
-		}  else if (y - 2 == solid.y  + solid.height   ){
+		}
+		else if (y == solid.y  + solid.height  - 1  ){
 			return true;
-		}  else if (y - 3 == solid.y  + solid.height   ){
+		}  else if (y == solid.y  + solid.height  - 2 ){
 			return true;
-		}  else if (y  - 4  == solid.y  + solid.height  ){
+		}  else if (y == solid.y  + solid.height  - 3 ){
 			return true;
-		} 
+		}  else if (y == solid.y  + solid.height  - 4  ){
+			return true;
+		} else if (y == solid.y  + solid.height  - 5 ) {
+			return true;
+		}
 		else {
 			
 			return false;
