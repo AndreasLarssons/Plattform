@@ -24,7 +24,7 @@ public class Hitbox {
 		
 		this.solid = solid;
 		if(x + playerWidth > solid.x  && x
-				<= solid.x + solid.width + (playerWidth - 62)){ // - 62 är en konstant då inget överlapp sker
+				<= solid.x + solid.width ){
 			return true;
 		} else {
 			return false;
@@ -80,7 +80,6 @@ public class Hitbox {
 		 * vilket leder till en miss
 		 * 
 		 */
-		
 		
 		
 		if(y - playerHeight == solid.y ){
@@ -141,7 +140,7 @@ public class Hitbox {
 		}
 	}
 	
-	public boolean leftSideHitTest (float x, float y, float width, float height , Solid solid) {
+	public boolean leftSideHitTest (float x, float y, float height , Solid solid) {
 		if (x == solid.x + solid.width && y + height >= solid.y && y <= solid.y + solid.height){
 			System.out.println("IS lefthit");
 			

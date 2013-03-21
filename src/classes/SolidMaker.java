@@ -38,8 +38,9 @@ public class SolidMaker  {
 		
 		if (map == 1){//Första banan
 			try {
-				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  700,  400, listofSolids));
-				listofSolids.add(new Solid(new Image("res/solidblock.png"),1, gc, state, g, hitbox,  1300,  400, listofSolids));
+				//listofSolids.add(new Solid(new Image("res/solidblock.png"),1, gc, state, g, hitbox,  1000,  400, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w1024.png"),1, gc, state, g, hitbox,  0,  400, listofSolids));
+				
     	
 			} catch (Exception e){}
 		} else if (map == 2){

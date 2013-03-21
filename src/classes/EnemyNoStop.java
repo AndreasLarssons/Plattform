@@ -30,7 +30,7 @@ public class EnemyNoStop extends Enemy {
 		for (int i = 0; i < solids.size(); i++){
 			
 			
-				if (leftSideHitTest(x, y, enemy.getWidth(), enemy.getHeight(), solids.get(i) )){
+				if (leftSideHitTest(x, y, enemy.getHeight(), solids.get(i) )){
 					System.out.println("HEj");
 					randDirection = -1;
 					

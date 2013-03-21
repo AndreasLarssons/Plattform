@@ -16,8 +16,9 @@ public class Menu extends BasicGameState {
 	
 	private Image background;
 	private Image startgame;
-	private int menuX = 300;
-	private int menuY = 300;
+	private Image controls;
+	private int menuX = 0;
+	private int menuY = 0;
 	
 	
 	public Menu(int state) {
@@ -27,14 +28,19 @@ public class Menu extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
+		background = new Image("res/background.png");
+		controls = new Image("res/Controls.png");
 		startgame = new Image("res/startgame.png");
+		menuX = (gc.getWidth() /2) - (startgame.getWidth() / 2);
+		menuY = (gc.getHeight() /2) - (startgame.getHeight() / 2);
 
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame state, Graphics g)
 			throws SlickException {
-	
+		background.draw(0,0);
+		controls.draw(gc.getWidth() - controls.getWidth(), gc.getHeight() - controls.getHeight());
 		startgame.draw(menuX,menuY);
 
 	} 			

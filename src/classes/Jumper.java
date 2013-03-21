@@ -19,6 +19,8 @@ public class Jumper  {
 	private float cameraY = 10;
 	private float gravity = 4;
 	private float bgX = 0;
+	private float jumpspeed = 10;
+	private float jumpheight = 200; // Ju mer desto högre
 
 	private Graphics g;
 	private GameContainer gc;
@@ -32,7 +34,7 @@ public class Jumper  {
 	private float startY;
 	private boolean isDead = false;
 
-	private Animation jump, movingLeft, movingRight, jumper, front;
+	private Animation jumpleft,jumpright, movingLeft, movingRight, jumper, front;
 	private int[] duration = {60,60}; //antalet ms för varje bild som animeras
 	private Image bg;
 	
@@ -73,20 +75,20 @@ public class Jumper  {
 		try{
 			
 			bg = new Image("res/background.png");
-			Image[]walkRight = {new Image("res/hero.png"), new Image("res/hero.png")};
-			Image[]walkLeft = {new Image("res/heroLeft.png"), new Image("res/heroLeft.png")};
-			Image[]jumpImg = {new Image("res/hero.png"), new Image("res/hero.png")};
-			Image[]frontImg= {new Image("res/hero.png"), new Image("res/hero.png")};
+			Image[]walkRight = {new Image("res/Jumper_Right.png"), new Image("res/Jumper_Right.png")};
+			Image[]walkLeft = {new Image("res/Jumper_Left.png"), new Image("res/Jumper_Left.png")};
+			Image[]jumpLeft = {new Image("res/heroLeft.png"), new Image("res/hero.png")};
+			Image[]jumpRight= {new Image("res/hero.png"), new Image("res/hero.png")};
 		
-			jump = new Animation(jumpImg, duration, false);
+			jumpleft = new Animation(jumpLeft, duration, false);
 			movingLeft = new Animation(walkLeft, duration, false);
 			movingRight = new Animation(walkRight, duration, false);
-			front = new Animation(frontImg, duration, false);
+			jumpright = new Animation(jumpRight, duration, false);
 		} catch (Exception e){
 			
 		}
 		
-		jumper = front;
+		jumper = movingRight;
 	
 	
 		
@@ -127,7 +129,7 @@ public class Jumper  {
 	private void sideHit (){
 		
 		for (int i = 0 ; i < solids.size(); i++){
-			if (hitbox.leftSideHitTest(x, y, jumper.getWidth(), jumper.getHeight(), solids.get(i) )){
+			if (hitbox.leftSideHitTest(x, y, jumper.getHeight(), solids.get(i) )){
 				this.x += velocity;
 				this.cameraX += velocity;
 				
@@ -220,6 +222,10 @@ public class Jumper  {
 					enemies.get(a).cameraX += velocity;
 				}
 				
+				if (isJumping){
+					jumper = jumpright;
+				}
+				
 				
 			}
 	
@@ -230,11 +236,14 @@ public class Jumper  {
 				x -= velocity;
 				cameraX -= velocity;
 				for (int i = 0; i < solids.size(); i++){
-					solids.get(i).cameraX -= 5;
+					solids.get(i).cameraX -= velocity;
 				}
 				
 				for (int a = 0; a < enemies.size(); a++){
 					enemies.get(a).cameraX -= velocity;
+				}
+				if (isJumping){
+					jumper = jumpleft;
 				}
 				
 			}
@@ -242,7 +251,7 @@ public class Jumper  {
 		
 		if  (isOnGround){ // om spelaren står på marken kan man hoppa
 			if (inp.isKeyDown(inp.KEY_UP)){
-				jumper = jump; // sätt animationen till jump
+				
 				startY = this.y;
 				isOnGround = false;
 				isJumping = true;
@@ -253,9 +262,9 @@ public class Jumper  {
 			
 			this.y -= 12;
 			if (this.y <= startY - 60){
-				this.y -= 2;
+				//this.y -= -2;
 			}
-			if (this.y <= startY - 130 ){
+			if (this.y <= startY - jumpheight ){
 				isJumping = false;
 			}
 		}
