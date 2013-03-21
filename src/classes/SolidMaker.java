@@ -40,6 +40,7 @@ public class SolidMaker  {
 			try {
 				//listofSolids.add(new Solid(new Image("res/solidblock.png"),1, gc, state, g, hitbox,  1000,  400, listofSolids));
 				listofSolids.add(new Solid(new Image("res/Solid_w1024.png"),1, gc, state, g, hitbox,  0,  400, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  1240,  250, listofSolids));
 				
     	
 			} catch (Exception e){}
