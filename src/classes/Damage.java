@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 public class Damage {
 	
-	private int health = 100; // vid debug öka till 100
+	private int health = 100; // vid debug öka till 100 standard ska vara 3
 	private Graphics g;
 	private GameContainer gc;
 	private Image img;

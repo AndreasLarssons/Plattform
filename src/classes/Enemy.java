@@ -56,10 +56,10 @@ public class Enemy extends Hitbox {
 	try{
 			
 			//bg = new Image("res/background.png");
-			Image[]walkRight = {new Image("res/hero.png"), new Image("res/hero.png")};
-			Image[]walkLeft = {new Image("res/heroLeft.png"), new Image("res/heroLeft.png")};
+			Image[]walkRight = {new Image("res/Tiger_Right.png"), new Image("res/Tiger2.png")};
+			Image[]walkLeft = {new Image("res/Tiger_Left.png"), new Image("res/Tiger3.png")};
 			Image[]jumpImg = {new Image("res/hero.png"), new Image("res/hero.png")};
-			Image[]frontImg= {new Image("res/hero.png"), new Image("res/hero.png")};
+			Image[]frontImg= {new Image("res/Tiger_Right.png"), new Image("res/hero.png")};
 		
 			jump = new Animation(jumpImg, duration, false);
 			movingLeft = new Animation(walkLeft, duration, false);
@@ -91,7 +91,7 @@ public class Enemy extends Hitbox {
 		
 		for (int i = 0; i < solids.size(); i++){
 			
-			if (groundHitTestY(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth()) && 
+			if (groundHitTestY(x, y, solids.get(i), enemy.getHeight() - 10, enemy.getWidth()) && 
 					groundHitTestX(x, y, solids.get(i), enemy.getHeight(), enemy.getWidth())){
 				this.y -= gravity;
 				moving();// Om den står på marken ska den röra sig

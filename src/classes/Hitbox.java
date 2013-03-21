@@ -43,23 +43,23 @@ public class Hitbox {
 		this.solid = solid;
 		this.y = y;
 		
-		if(this.y + playerWidth + 10 == this.solid.y &&  this.y <= this.solid.y + solidHeight - 10 ){
+		if(this.y + playerHeight == this.solid.y &&  this.y <= this.solid.y + solidHeight - 10 ){
 			return true;
-		} else if (this.y + playerWidth + 10 ==this.solid.y + 1 &&  this.y <= this.solid.y + solid.height - 10){
+		} else if (this.y + playerHeight ==this.solid.y + 1 &&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		} else if (this.y + playerWidth + 10 == this.solid.y + 2&&  this.y <= this.solid.y + solid.height - 10){
+		} else if (this.y + playerHeight == this.solid.y + 2&&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		}else if (this.y + playerWidth + 10 == this.solid.y + 3 &&  this.y <= this.solid.y + solid.height - 10){
+		}else if (this.y + playerHeight == this.solid.y + 3 &&  this.y <= this.solid.y + solid.height - 10){
 			return true;
-		} else if (this.y + playerWidth + 10 == this.solid.y + 4 &&  this.y  <= this.solid.y + solid.height - 10){
+		} else if (this.y + playerHeight == this.solid.y + 4 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y + playerWidth + 10 == this.solid.y - 1 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerHeight == this.solid.y - 1 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y + playerWidth + 10 == this.solid.y - 2 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerHeight == this.solid.y - 2 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y + playerWidth + 10 == this.solid.y - 3 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerHeight == this.solid.y - 3 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
-		}  else if (this.y + playerWidth + 10 == this.solid.y - 4 &&  this.y  <= this.solid.y + solid.height - 10){
+		}  else if (this.y + playerHeight == this.solid.y - 4 &&  this.y  <= this.solid.y + solid.height - 10){
 			return true;
 		} 
 		else {

@@ -18,7 +18,7 @@ public class Jumper  {
 	private float cameraX = 10;
 	private float cameraY = 10;
 	private float gravity = 4;
-	private float bgX = 0;
+	private float bgX = - 1000;
 	private float jumpspeed = 10;
 	private float jumpheight = 200; // Ju mer desto högre
 
@@ -77,8 +77,8 @@ public class Jumper  {
 			bg = new Image("res/background.png");
 			Image[]walkRight = {new Image("res/Jumper_Right.png"), new Image("res/Jumper_Right.png")};
 			Image[]walkLeft = {new Image("res/Jumper_Left.png"), new Image("res/Jumper_Left.png")};
-			Image[]jumpLeft = {new Image("res/heroLeft.png"), new Image("res/hero.png")};
-			Image[]jumpRight= {new Image("res/hero.png"), new Image("res/hero.png")};
+			Image[]jumpLeft = {new Image("res/Jumper_jumpleft.png"), new Image("res/Jumper_jumpleft.png")};
+			Image[]jumpRight= {new Image("res/Jumper_jumpright.png"), new Image("res/Jumper_jumpright.png")};
 		
 			jumpleft = new Animation(jumpLeft, duration, false);
 			movingLeft = new Animation(walkLeft, duration, false);
@@ -175,7 +175,7 @@ public class Jumper  {
 	private void falling() {
 		// TODO Auto-generated method stub
 		for (int i = 0 ; i < solids.size(); i++){//Loopa igenom alla solider
-			if (hitbox.groundHitTestY(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth()) &&
+			if (hitbox.groundHitTestY(x,y,solids.get(i) , jumper.getHeight() - 10, jumper.getWidth()) &&
 					hitbox.groundHitTestX(x,y,solids.get(i) , jumper.getHeight(), jumper.getWidth())){
 				isOnGround = true; // om spelaren står på marken
 				this.y -= gravity;//Normal kraft
@@ -211,7 +211,7 @@ public class Jumper  {
 		
 			if (inp.isKeyDown(inp.KEY_RIGHT)){
 			//System.out.println("MovingRight");
-				jumper = movingRight;
+				
 				x += velocity;
 				cameraX += velocity;
 				for (int i = 0; i < solids.size(); i++){
@@ -224,6 +224,8 @@ public class Jumper  {
 				
 				if (isJumping){
 					jumper = jumpright;
+				} else {
+					jumper = movingRight;
 				}
 				
 				
@@ -244,6 +246,8 @@ public class Jumper  {
 				}
 				if (isJumping){
 					jumper = jumpleft;
+				} else {
+					jumper = movingLeft;
 				}
 				
 			}
