@@ -18,7 +18,7 @@ public class Intro extends BasicGameState {
 	private int count = 0;
 	
 	public Intro (int state){
-		countdown();
+		
 	}
 	
 	
@@ -31,6 +31,7 @@ public class Intro extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
+		
 		// TODO Auto-generated method stub
 		fiImg = new Image("res/Intro1.png");
 		seImg = new Image("res/Intro2.png");
@@ -41,8 +42,9 @@ public class Intro extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame state, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		if (count == 1){
+		if (count == 0){
+			countdown();
+		} else if (count == 1){
 			fiImg.draw(0,0);
 		}else if (count == 2){
 			seImg.draw(0,0);

@@ -5,6 +5,8 @@ package classes;
 
 import java.util.ArrayList;
 
+
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -35,6 +37,8 @@ public class Play extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {
+		Music music = new Music();
+		music.startMusic();
 		hitbox = new Hitbox();
 		
 
@@ -103,5 +107,7 @@ public class Play extends BasicGameState {
 		
 		return 1;
 	}
+	
+	
 }
 	
