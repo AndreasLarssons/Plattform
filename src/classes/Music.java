@@ -10,6 +10,8 @@ import javax.sound.sampled.Clip;
 
 public class Music {
 
+	private Clip clip;
+	
 	public Music (){
 		
 	}
@@ -17,7 +19,7 @@ public class Music {
 	public void startMusic (){
 		try{
 	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("res/Djungelljud_2.wav").getAbsoluteFile());
-	        Clip clip = AudioSystem.getClip();
+	        clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        
 	        clip.start();
@@ -28,6 +30,8 @@ public class Music {
 	        ex.printStackTrace();
 	    }
 	}
-	
+	public void stop(){
+		clip.stop();
+	}
 	
 }

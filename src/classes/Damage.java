@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 public class Damage {
 	
-	private int health = 100; // vid debug öka till 100 standard ska vara 3
+	private int health = 3; // vid debug öka till 100 standard ska vara 3
 	private Graphics g;
 	private GameContainer gc;
 	private Image img;
@@ -17,15 +17,17 @@ public class Damage {
 	private SolidMaker solidmaker;
 	private int map;
 	private Hitbox hitbox;
+	private Music music;
 	
-	public Damage (GameContainer gc, Graphics g, SolidMaker solidmaker, Hitbox hitbox){
+	public Damage (GameContainer gc, Graphics g, SolidMaker solidmaker, Hitbox hitbox, Music music){
 		this.gc = gc;
 		this.map = solidmaker.map;
 		this.g = g;
+		this.music = music;
 		this.hitbox = hitbox;
 		this.solidmaker = solidmaker;//Behövs för att kunna rita starta om när man dör
 		try {
-			img = new Image("res/HeroDamage.png");
+			img = new Image("res/Jumper_Right.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,6 +74,7 @@ public class Damage {
 	private void onDeath (){
 	//	g.drawString("YOU ARE DEAD", gc.getWidth() / 2, gc.getHeight() / 2);
 		solidmaker.setMap(map);
+		music.stop();
 		
 	}
 	

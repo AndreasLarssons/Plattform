@@ -45,7 +45,7 @@ public class Play extends BasicGameState {
 		
 
 		solidmaker = new SolidMaker(map, hitbox, gc, state, g, this);
-		Damage dmg = new Damage(gc, gc.getGraphics(), solidmaker, hitbox);
+		Damage dmg = new Damage(gc, gc.getGraphics(), solidmaker, hitbox, music);
 	    listofSolids = 	solidmaker.getSolids();
 	   
 	    
