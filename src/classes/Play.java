@@ -34,6 +34,8 @@ public class Play extends BasicGameState {
 		listofEnemies.clear();
 		
 	}
+	
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame state)
 			throws SlickException {

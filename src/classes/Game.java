@@ -12,6 +12,7 @@ public class Game extends StateBasedGame implements Runnable {
 	public static final int menu = 0; //Olika states värde
 	public static final int game = 1;
 	public static final int intro = 2;
+	public static final int outro = 3;
 
 	public Game(String gameName) throws SlickException {
 		super(gameName);
@@ -19,6 +20,7 @@ public class Game extends StateBasedGame implements Runnable {
 		this.addState(new Menu(menu));
 		this.addState(new Intro(intro));
 		this.addState(new Play(game));
+		this.addState(new Outro(outro));
 		
 		// TODO Auto-generated constructor stub
 	}

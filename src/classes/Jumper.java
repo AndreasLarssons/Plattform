@@ -121,7 +121,9 @@ public class Jumper  {
 		}
 		sideHit();
 		enemyHit();
-	
+		if (this.x > 8100){
+			outro();
+		}
 		
 		
 	}	
@@ -204,6 +206,10 @@ public class Jumper  {
 			}
 		}
 		}
+	}
+	
+	private void outro (){
+		state.enterState(3);
 	}
 
 

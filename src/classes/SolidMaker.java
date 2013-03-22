@@ -56,6 +56,7 @@ public class SolidMaker  {
 				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  6200,  380, listofSolids));
 				listofSolids.add(new Solid(new Image("res/Solid_w512.png"),1, gc, state, g, hitbox,  6900,  250, listofSolids));
 				listofSolids.add(new Solid(new Image("res/Solid_w1024.png"),1, gc, state, g, hitbox,  7500,  380, listofSolids));
+				listofSolids.add(new Solid(new Image("res/Plane.png"),1, gc, state, g, hitbox,  8200,  204, listofSolids));
 				
 			} catch (Exception e){}
 		} else if (map == 2){
