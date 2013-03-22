@@ -63,6 +63,7 @@ public class Intro extends BasicGameState {
 		gc.getInput();
 		// TODO Auto-generated method stub
 		if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)){
+			timer.cancel();
 			state.enterState(1);
 		}
 	}
