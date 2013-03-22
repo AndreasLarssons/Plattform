@@ -11,11 +11,13 @@ public class Game extends StateBasedGame implements Runnable {
 	public static final String gameName = "Plattform"; // Spelets namn
 	public static final int menu = 0; //Olika states värde
 	public static final int game = 1;
+	public static final int intro = 2;
 
 	public Game(String gameName) throws SlickException {
 		super(gameName);
 		//Lägg till states (Denna körs vid start av programmet)
 		this.addState(new Menu(menu));
+		this.addState(new Intro(intro));
 		this.addState(new Play(game));
 		
 		// TODO Auto-generated constructor stub

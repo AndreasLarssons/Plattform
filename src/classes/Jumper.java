@@ -18,7 +18,7 @@ public class Jumper  {
 	private float cameraX = 10;
 	private float cameraY = 10;
 	private float gravity = 5;
-	private float bgX = - 1000;
+	private float bgX = - 650;
 	private float jumpspeed = 10;
 	private float jumpheight = 200; // Ju mer desto högre
 
@@ -313,12 +313,12 @@ public class Jumper  {
 	private void shoot() throws SlickException{
 			
 		//System.out.println("awda");
-		Bullet bul = new Bullet(solids, hitbox, x, y, g); 
+		Bullet bul = new Bullet(solids, hitbox, x, y, gc.getGraphics()); 
 		bul.init();
 		bul.render();
 		//bullets.get(0).init();
-		renderBullet();
-		updateBullet();
+	//	renderBullet();
+		//updateBullet();
 	
 
 

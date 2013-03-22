@@ -79,7 +79,7 @@ public class Menu extends BasicGameState {
 				 */
 				System.out.println("Is down");
 				
-				state.enterState(1);
+				state.enterState(2);
 			}
 		} 
 

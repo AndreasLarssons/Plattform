@@ -48,6 +48,7 @@ public class Bullet {
 		int [] duration = {60,60};
 		Image imgArray[] = {new Image("res/hero.png"),new Image("res/hero.png")};
 		 anim = new Animation(imgArray, duration , false);
+		 img = new Image("res/hero.png");
 	}
 
 
@@ -55,10 +56,10 @@ public class Bullet {
 	public void render()
 			throws SlickException {
 		// TODO Auto-generated method stub
-		System.out.println("wad");
 		//img.draw(x, 300);
-		anim.draw(300,300);
+		//anim.draw(300,300);
 		
+		img.draw(0,0);
 	}
 
 
@@ -66,7 +67,7 @@ public class Bullet {
 	public void update()
 			throws SlickException {
 		// TODO Auto-generated method stub
-		x += velocity;
+	//	x += velocity;
 	}
 
 
